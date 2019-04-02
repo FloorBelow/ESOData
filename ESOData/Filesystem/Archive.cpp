@@ -19,6 +19,8 @@
 
 #include <zlib.h>
 
+#include <snappy.h>
+
 namespace esodata {
 	Archive::Archive(const std::string &manifestFilename) {
 		{
@@ -64,6 +66,16 @@ namespace esodata {
 
 			m_files.emplace_back(std::move(handle));
 		}
+
+		if (m_manifest.hasFileSignatures()) {
+			for (auto it = m_manifest.body.data.files.begin(); it != m_manifest.body.data.files.end(); it++) {
+				auto &info = (*it).second;
+
+				std::vector<unsigned char> data;
+				readFileByKey((*it).first, data);
+				info.cachedSize = data.size();
+			}
+		}
 	}
 
 	Archive::~Archive() = default;
@@ -101,6 +113,17 @@ namespace esodata {
 			zlibUncompress(data.data(), data.size(), uncompressedData.data(), uncompressedData.size());
 			data = std::move(uncompressedData);
 			break;
+		}
+
+		case FileCompressionType::Snappy: {
+			std::vector<unsigned char> uncompressedData(entry.uncompressedSize);
+
+			if (!snappy::RawUncompress(reinterpret_cast<const char *>(data.data()), data.size(), reinterpret_cast<char *>(uncompressedData.data())))
+				throw std::runtime_error("snappy::RawUncompress failed");
+
+			data = std::move(uncompressedData);
+			break;
+
 		}
 
 		default:
@@ -142,11 +165,12 @@ namespace esodata {
 		return true;
 	}
 
-	void Archive::enumerateFiles(std::function<void(uint64_t, size_t)> &&enumerator) {
+	void Archive::enumerateFiles(std::function<void(uint64_t key, size_t size)> &&enumerator) {
 		for (auto it = m_manifest.body.data.files.begin(); it != m_manifest.body.data.files.end(); it++) {
-			auto &info = (*it).second;
-
-			enumerator((*it).first, info.uncompressedSize);
+			if (m_manifest.hasFileSignatures())
+				enumerator((*it).first, (*it).second.cachedSize);
+			else
+				enumerator((*it).first, (*it).second.uncompressedSize);
 		}
 	}
 }

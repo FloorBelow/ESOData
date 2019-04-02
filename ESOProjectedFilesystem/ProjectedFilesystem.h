@@ -21,6 +21,10 @@ struct DirectoryEnumeration {
 	const Inode *inode;
 	bool scanInProgress;
 	bool filter;
+	bool byID;
+	uint64_t firstID;
+	uint64_t lastID;
+	uint64_t posID;
 	std::wstring pattern;
 	std::map<std::wstring, std::unique_ptr<Inode>>::const_iterator iterator;
 };
@@ -55,7 +59,10 @@ private:
 
 	const Inode *resolve(const std::wstring &name) const;
 
-	std::wstring buildNameForID(uint64_t id) const;
+	std::wstring buildNameForID(uint64_t id, uint64_t mask) const;
+
+	bool parseByIDName(const std::wstring &name, uint64_t &firstID, uint64_t &lastID);
+	static void byIdSplit(uint64_t pos, uint64_t first, uint64_t last, uint8_t &byte, uint64_t &next);
 
 	std::mutex m_runMutex;
 	bool m_run;
@@ -65,9 +72,11 @@ private:
 	PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT m_context;
 	esodata::Filesystem m_fs;
 	mutable Inode m_rootInode;
+	std::map<uint64_t, size_t> m_files;
 
 	std::shared_mutex m_directoryEnumerationMutex;
 	std::unordered_map<GUID, std::unique_ptr<DirectoryEnumeration>> m_directoryEnumerations;
+
 };
 
 #endif

@@ -57,7 +57,7 @@ add_library(ESOData STATIC
 )
 
 target_include_directories(ESOData PUBLIC include)
-target_link_libraries(ESOData PRIVATE zlib bcrypt crypt32)
+target_link_libraries(ESOData PRIVATE zlib bcrypt crypt32 snappy)
 target_link_libraries(ESOData PUBLIC archiveparse)
 target_compile_definitions(ESOData PRIVATE -DUNICODE -D_UNICODE -DWIN32_LEAN_AND_MEAN -D_VC_EXTRALEAN -DNOMINMAX)
 

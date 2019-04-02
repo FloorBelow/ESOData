@@ -8,11 +8,75 @@
 #include <filesystem>
 #include <fstream>
 #include <sstream>
+#include <regex>
 
 #include <ESOData/Serialization/Hash.h>
 
 size_t std::hash<GUID>::operator()(const GUID &guid) const {
 	return static_cast<size_t>(esodata::hashData64(reinterpret_cast<const unsigned char *>(&guid), sizeof(guid)));
+}
+
+bool ProjectedFilesystem::parseByIDName(const std::wstring &initialPath, uint64_t &firstID, uint64_t &lastID) {
+	std::wstring path(initialPath);
+	while (!path.empty() && path.back() == L'\\')
+		path.erase(path.size() - 1, 1);
+
+	size_t namePos = 0;
+
+	std::wstring thisName;
+
+	int position = -2;
+
+	firstID = 0;
+	lastID = ~firstID;
+
+	while (true) {
+		size_t nextPart = path.find(L'\\', namePos);
+
+		if (nextPart == std::string::npos) {
+			thisName = path.substr(namePos);
+		}
+		else {
+			thisName = path.substr(namePos, nextPart - namePos);
+		}
+
+		if (position == -2) {
+			if (!thisName.empty())
+				return false;
+		}
+		else if (position == -1) {
+			if (PrjFileNameCompare(thisName.c_str(), L"by-id") != 0)
+				return false;
+		}
+		else {
+			if (position == 8)
+				return false;
+
+			static const std::wregex nameRegex(L"^[0-9a-fA-F]{2}$");
+			if (!std::regex_match(thisName, nameRegex))
+				return false;
+
+			auto byte = std::stoul(thisName, nullptr, 16);
+
+			uint64_t mask;
+			if (position == 7)
+				mask = 0;
+			else
+				mask = ~0ULL >> ((position + 1) * 8);
+
+			firstID = (firstID & mask) | (static_cast<uint64_t>(byte) << ((7 - position) * 8));
+			lastID = (lastID & mask) | (static_cast<uint64_t>(byte) << ((7 - position) * 8));
+		}
+
+		position++;
+
+		if (nextPart == std::string::npos)
+			break;
+		
+		namePos = nextPart + 1;
+	}
+
+	return position >= 0;
 }
 
 ProjectedFilesystem::ProjectedFilesystem() : m_run(true) {
@@ -28,35 +92,20 @@ ProjectedFilesystem::ProjectedFilesystem() : m_run(true) {
 
 ProjectedFilesystem::~ProjectedFilesystem() = default;
 
-std::wstring ProjectedFilesystem::buildNameForID(uint64_t key) const {
+std::wstring ProjectedFilesystem::buildNameForID(uint64_t key, uint64_t mask) const {
 	std::wstringstream nameBuf;
 
-	nameBuf << "\\by-id\\";
-	nameBuf << std::hex;
-	nameBuf.width(2);
-	nameBuf.fill('0');
-	nameBuf << ((key >> 56) & 0xFF) << "\\";
-	nameBuf.width(2);
-	nameBuf.fill('0');
-	nameBuf << ((key >> 48) & 0xFF) << "\\";
-	nameBuf.width(2);
-	nameBuf.fill('0');
-	nameBuf << ((key >> 40) & 0xFF) << "\\";
-	nameBuf.width(2);
-	nameBuf.fill('0');
-	nameBuf << ((key >> 32) & 0xFF) << "\\";
-	nameBuf.width(2);
-	nameBuf.fill('0');
-	nameBuf << ((key >> 24) & 0xFF) << "\\";
-	nameBuf.width(2);
-	nameBuf.fill('0');
-	nameBuf << ((key >> 16) & 0xFF) << "\\";
-	nameBuf.width(2);
-	nameBuf.fill('0');
-	nameBuf << ((key >> 8) & 0xFF) << "\\";
-	nameBuf.width(2);
-	nameBuf.fill('0');
-	nameBuf << (key & 0xFF);
+	nameBuf << "\\by-id";
+
+	for (size_t byte = 0; byte < 8; byte++) {
+		if (mask & (0xFF00000000000000ULL >> (byte * 8))) {
+			nameBuf << "\\";
+			nameBuf << std::hex;
+			nameBuf.width(2);
+			nameBuf.fill('0');
+			nameBuf << ((key >> (56 - byte * 8)) & 0xFF);
+		}
+	}
 
 	return nameBuf.str();
 }
@@ -128,9 +177,7 @@ void ProjectedFilesystem::initialize(const std::string &rootDirectory, const std
 	}
 
 	m_fs.enumerateFiles([this](uint64_t key, size_t size) {
-		auto inode = createInode(buildNameForID(key));
-		inode->fileKey = key;
-		inode->info.FileSize = size;
+		m_files.emplace(key, size);
 	});
 }
 
@@ -274,17 +321,26 @@ const Inode *ProjectedFilesystem::resolve(const std::wstring &name) const {
 
 HRESULT CALLBACK ProjectedFilesystem::startDirectoryEnumeration(const PRJ_CALLBACK_DATA *callbackData, const GUID *enumerationGuid) {
 	auto this_ = static_cast<ProjectedFilesystem *>(callbackData->InstanceContext);
-
+	
 	auto enumeration = std::make_unique<DirectoryEnumeration>();
 	enumeration->path = std::wstring(L"\\") + callbackData->FilePathName;
-	enumeration->inode = this_->resolve(enumeration->path);
-	enumeration->scanInProgress = false;
 
-	if (!enumeration->inode)
-		return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+	enumeration->byID = this_->parseByIDName(enumeration->path, enumeration->firstID, enumeration->lastID);
 
-	if (!enumeration->inode->info.IsDirectory)
-		return HRESULT_FROM_WIN32(ERROR_DIRECTORY);
+	if (enumeration->byID) {
+		if(enumeration->firstID == enumeration->lastID)
+			return HRESULT_FROM_WIN32(ERROR_DIRECTORY);
+	}
+	else {
+		enumeration->inode = this_->resolve(enumeration->path);
+		enumeration->scanInProgress = false;
+
+		if (!enumeration->inode)
+			return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+
+		if (!enumeration->inode->info.IsDirectory)
+			return HRESULT_FROM_WIN32(ERROR_DIRECTORY);
+	}
 
 	auto enumerationPtr = enumeration.get();
 
@@ -305,6 +361,54 @@ HRESULT CALLBACK ProjectedFilesystem::endDirectoryEnumeration(const PRJ_CALLBACK
 	}
 
 	return S_OK;
+}
+
+void ProjectedFilesystem::byIdSplit(uint64_t pos, uint64_t first, uint64_t last, uint8_t &byte, uint64_t &next) {
+	auto mask = last - first;
+	switch (mask) {
+	case 0xFFFFFFFFFFFFFFFFULL:
+		byte = static_cast<uint8_t>(pos >> (7 * 8));
+		next = pos + (1ULL << (7 * 8)) & ~(static_cast<uint64_t>(-1) >> (1 * 8));
+		break;
+
+	case 0x00FFFFFFFFFFFFFFULL:
+		byte = static_cast<uint8_t>(pos >> (6 * 8));
+		next = pos + (1ULL << (6 * 8)) & ~(static_cast<uint64_t>(-1) >> (2 * 8));
+		break;
+
+	case 0x0000FFFFFFFFFFFFULL:
+		byte = static_cast<uint8_t>(pos >> (5 * 8));
+		next = pos + (1ULL << (5 * 8)) & ~(static_cast<uint64_t>(-1) >> (3 * 8));
+		break;
+
+	case 0x000000FFFFFFFFFFULL:
+		byte = static_cast<uint8_t>(pos >> (4 * 8));
+		next = pos + (1ULL << (4 * 8)) & ~(static_cast<uint64_t>(-1) >> (4 * 8));
+		break;
+
+	case 0x00000000FFFFFFFFULL:
+		byte = static_cast<uint8_t>(pos >> (3 * 8));
+		next = pos + (1ULL << (3 * 8)) & ~(static_cast<uint64_t>(-1) >> (5 * 8));
+		break;
+
+	case 0x0000000000FFFFFFULL:
+		byte = static_cast<uint8_t>(pos >> (2 * 8));
+		next = pos + (1ULL << (2 * 8)) & ~(static_cast<uint64_t>(-1) >> (6 * 8));
+		break;
+
+	case 0x000000000000FFFFULL:
+		byte = static_cast<uint8_t>(pos >> (1 * 8));
+		next = pos + (1ULL << (1 * 8)) & ~(static_cast<uint64_t>(-1) >> (7 * 8));
+		break;
+
+	case 0x00000000000000FFULL:
+		byte = static_cast<uint8_t>(pos);
+		next = pos + 1;
+		break;
+
+	default:
+		throw std::logic_error("bad mask");
+	}
 }
 
 HRESULT CALLBACK ProjectedFilesystem::getDirectoryEnumeration(const PRJ_CALLBACK_DATA *callbackData, const GUID *enumerationGuid, PCWSTR searchExpression, PRJ_DIR_ENTRY_BUFFER_HANDLE dirEntryBufferHandle) {
@@ -330,86 +434,219 @@ HRESULT CALLBACK ProjectedFilesystem::getDirectoryEnumeration(const PRJ_CALLBACK
 		else {
 			enumeration->filter = false;
 		}
-		enumeration->iterator = enumeration->inode->children.begin();
+		if (enumeration->byID) {
+			enumeration->posID = enumeration->firstID;
+		}
+		else {
+			enumeration->iterator = enumeration->inode->children.begin();
+		}
 	}
 	
 	bool writtenEntry = false;
 
-	while (enumeration->iterator != enumeration->inode->children.end()) {
-		auto &entry = *enumeration->iterator;
+	if (enumeration->byID) {
+		auto enumerationLimit = this_->m_files.upper_bound(enumeration->lastID);
 
-		bool match = true;
+		do {
+			auto found = this_->m_files.lower_bound(enumeration->posID);
+			if (found == enumerationLimit)
+				break;
 
-		auto name = entry.second->name;
+			uint8_t byte;
+			uint64_t next;
 
-		if (enumeration->filter) {
-			match = PrjFileNameMatch(name.c_str(), enumeration->pattern.c_str());
-		}
+			byIdSplit(found->first, enumeration->firstID, enumeration->lastID, byte, next);
 
-		if (match) {
-			auto hr = PrjFillDirEntryBuffer(
-				name.c_str(),
-				&entry.second->info,
-				dirEntryBufferHandle
-			);
+			std::wstringstream name;
+			name.width(2);
+			name.fill('0');
+			name << std::hex << byte;
 
-			if (FAILED(hr)) {
-				if (writtenEntry)
-					break;
-				else
-					return hr;
+			bool match = true;
+
+			if (enumeration->filter) {
+				match = PrjFileNameMatch(name.str().c_str(), enumeration->pattern.c_str());
 			}
-			else {
-				writtenEntry = true;
-			}
-		}
 
-		enumeration->iterator++;
+			if (match) {
+				PRJ_FILE_BASIC_INFO info;
+				info.CreationTime.QuadPart = 0;
+				info.LastAccessTime.QuadPart = 0;
+				info.LastWriteTime.QuadPart = 0;
+				info.ChangeTime.QuadPart = 0;
+				info.FileAttributes = 0;
+
+				if ((enumeration->lastID - enumeration->firstID) == 0xFF) {
+					info.IsDirectory = FALSE;
+					info.FileSize = found->second;
+				}
+				else {
+					info.IsDirectory = TRUE;
+					info.FileSize = 0;
+				}
+
+				auto hr = PrjFillDirEntryBuffer(
+					name.str().c_str(),
+					&info,
+					dirEntryBufferHandle
+				);
+
+				if (FAILED(hr)) {
+					if (writtenEntry)
+						break;
+					else
+						return hr;
+				}
+				else {
+					writtenEntry = true;
+				}
+			}
+
+			enumeration->posID = next;
+
+		} while (enumeration->posID > enumeration->firstID && enumeration->posID <= enumeration->lastID);
+	}
+	else {
+
+		while (enumeration->iterator != enumeration->inode->children.end()) {
+			auto &entry = *enumeration->iterator;
+
+			bool match = true;
+
+			auto name = entry.second->name;
+
+			if (enumeration->filter) {
+				match = PrjFileNameMatch(name.c_str(), enumeration->pattern.c_str());
+			}
+
+			if (match) {
+				auto hr = PrjFillDirEntryBuffer(
+					name.c_str(),
+					&entry.second->info,
+					dirEntryBufferHandle
+				);
+
+				if (FAILED(hr)) {
+					if (writtenEntry)
+						break;
+					else
+						return hr;
+				}
+				else {
+					writtenEntry = true;
+				}
+			}
+
+			enumeration->iterator++;
+		}
 	}
 
 	return S_OK;
 }
 
 HRESULT CALLBACK ProjectedFilesystem::getPlaceholderInfo(const PRJ_CALLBACK_DATA *callbackData) {
-	printf("Request: %ls\n", callbackData->FilePathName);
-
 	auto this_ = static_cast<ProjectedFilesystem *>(callbackData->InstanceContext);
-	auto inode = this_->resolve(std::wstring(L"\\") + callbackData->FilePathName);
-	if(inode == nullptr)
-		return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+	auto path = std::wstring(L"\\") + callbackData->FilePathName;
+
+	uint64_t firstID, lastID;
+
+	auto byID = this_->parseByIDName(path, firstID, lastID);
 
 	PRJ_PLACEHOLDER_INFO placeholderInfo;
 	ZeroMemory(&placeholderInfo, sizeof(placeholderInfo));
-	placeholderInfo.FileBasicInfo = inode->info;
 
-	auto path = inode->fullCanonicalPath.c_str();
-	if (*path == L'\\')
-		path++;
+	if (byID) {
 
-	auto hr = PrjWritePlaceholderInfo(
-		this_->m_context,
-		path,
-		&placeholderInfo,
-		sizeof(placeholderInfo)
-	);
+		auto name = this_->buildNameForID(firstID, ~(lastID - firstID));
 
-	return hr;
+		if (firstID == lastID) {
+			auto fileIt = this_->m_files.find(firstID);
+			if(fileIt == this_->m_files.end())
+				return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+
+			placeholderInfo.FileBasicInfo.IsDirectory = FALSE;
+			placeholderInfo.FileBasicInfo.FileSize = fileIt->second;
+		}
+		else {
+			auto lower = this_->m_files.lower_bound(firstID);
+			auto upper = this_->m_files.upper_bound(lastID);
+			if(lower == upper)
+				return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+
+			placeholderInfo.FileBasicInfo.IsDirectory = TRUE;
+			placeholderInfo.FileBasicInfo.FileSize = 0;
+
+		}
+
+		return PrjWritePlaceholderInfo(
+			this_->m_context,
+			path.c_str() + 1,
+			&placeholderInfo,
+			sizeof(placeholderInfo)
+		);
+
+	}
+	else {
+		auto inode = this_->resolve(path);
+		if (inode == nullptr)
+			return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+
+		placeholderInfo.FileBasicInfo = inode->info;
+
+		auto path = inode->fullCanonicalPath.c_str();
+		if (*path == L'\\')
+			path++;
+
+		return PrjWritePlaceholderInfo(
+			this_->m_context,
+			path,
+			&placeholderInfo,
+			sizeof(placeholderInfo)
+		);
+	}
 }
 
 HRESULT CALLBACK ProjectedFilesystem::getFileData(const PRJ_CALLBACK_DATA *callbackData, UINT64 byteOffset, UINT32 length) {
-	
-	auto this_ = static_cast<ProjectedFilesystem *>(callbackData->InstanceContext);
-	auto inode = this_->resolve(std::wstring(L"\\") + callbackData->FilePathName);
-	if (inode == nullptr)
-		return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+	uint64_t firstID, lastID;
 
-	if (inode->info.IsDirectory)
-		return HRESULT_FROM_WIN32(ERROR_DIRECTORY);
-	
-	printf("GetFileData: %ls, %016llX, %08X\n", callbackData->FilePathName, byteOffset, length);
+	auto this_ = static_cast<ProjectedFilesystem *>(callbackData->InstanceContext);
+
+	auto path = std::wstring(L"\\") + callbackData->FilePathName;
+
+	auto byID = this_->parseByIDName(path, firstID, lastID);
+
+	uint64_t id;
+
+	if (byID) {
+
+		if (firstID != lastID) {
+			auto lower = this_->m_files.lower_bound(firstID);
+			auto upper = this_->m_files.upper_bound(lastID);
+			if (lower == upper)
+				return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+
+			return HRESULT_FROM_WIN32(ERROR_DIRECTORY);
+		}
+
+		auto found = this_->m_files.find(firstID);
+		if(found == this_->m_files.end())
+			return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+
+		id = found->first;
+	}
+	else {
+		auto inode = this_->resolve(path);
+		if (inode == nullptr)
+			return HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
+
+		if (inode->info.IsDirectory)
+			return HRESULT_FROM_WIN32(ERROR_DIRECTORY);
+
+		id = inode->fileKey;
+	}
 
 	try {
-		auto data = this_->m_fs.readFileByKey(inode->fileKey);
+		auto data = this_->m_fs.readFileByKey(id);
 
 		size_t realLength;
 		if (byteOffset > data.size())

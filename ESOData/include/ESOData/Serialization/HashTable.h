@@ -105,7 +105,14 @@ namespace esodata {
 				uint32_t entry = m_table.type3Data.hashTable.data[m_index];
 				size_t pairIndex = entry & 0x3FFFFFFFU;
 
-				return std::pair<const Key &, const Value &>(m_table.type3Data.keys.data[pairIndex], m_table.type3Data.values.data[pairIndex]);
+				return std::make_pair<const Key &, const Value &>(m_table.type3Data.keys.data[pairIndex], m_table.type3Data.values.data[pairIndex]);
+			}
+
+			std::pair<const Key &, Value &> operator *() {
+				uint32_t entry = m_table.type3Data.hashTable.data[m_index];
+				size_t pairIndex = entry & 0x3FFFFFFFU;
+
+				return std::pair<const Key &, Value &>(m_table.type3Data.keys.data[pairIndex], const_cast<HashTable<Key, Value> &>(m_table).type3Data.values.data[pairIndex]);
 			}
 
 		private:
