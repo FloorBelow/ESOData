@@ -21,6 +21,7 @@ namespace esodata {
 		void addManifest(const std::string &filename);
 
 		void loadFileTable(uint64_t fileTableKey);
+		void enumerateFileNames(std::function<void(const std::string &name, uint64_t key)> &&enumerator);
 
 		std::vector<unsigned char> readFileByKey(uint64_t key);
 		void enumerateFiles(std::function<void(uint64_t key, size_t size)> &&enumerator);

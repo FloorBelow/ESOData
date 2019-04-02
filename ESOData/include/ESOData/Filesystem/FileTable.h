@@ -16,12 +16,12 @@ namespace esodata {
 	SerializationStream &operator <<(SerializationStream &stream, const FileTableEntry &entry);
 	SerializationStream &operator >>(SerializationStream &stream, FileTableEntry &entry);
 
-	struct FileTableUnknown {
+	struct FileTableAdditionalData {
 		std::array<uint32_t, 11> unknown1;
 	};
 
-	SerializationStream &operator <<(SerializationStream &stream, const FileTableUnknown &entry);
-	SerializationStream &operator >>(SerializationStream &stream, FileTableUnknown &entry);
+	SerializationStream &operator <<(SerializationStream &stream, const FileTableAdditionalData &entry);
+	SerializationStream &operator >>(SerializationStream &stream, FileTableAdditionalData &entry);
 
 	struct FileTable {
 		uint16_t unknown1;
@@ -30,8 +30,10 @@ namespace esodata {
 		uint32_t recordCount;
 		HashTable<uint64_t, uint32_t> nameHashToLocalId;
 		HashTable<uint32_t, FileTableEntry> entries;
-		HashTable<uint32_t, FileTableUnknown> unknown4;
+		HashTable<uint32_t, FileTableAdditionalData> additionalData;
 		SizedVector<uint32_t, char> nameHeap;
+
+		uint64_t globalIdPrefix;
 	};
 
 	SerializationStream &operator <<(SerializationStream &stream, const FileTable &table);

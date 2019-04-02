@@ -118,7 +118,7 @@ void CALLBACK ServiceMain(
 			throw archiveparse::WindowsError();
 	}
 
-	//try {
+	try {
 
 		if (serviceRegister) {
 			try {
@@ -244,11 +244,11 @@ void CALLBACK ServiceMain(
 		FilesystemInstance.run();
 
 		ExitService(0);
-	//}
-	//catch (const std::exception &e) {
-	//	fprintf(stderr, "Uncaught exception: %s\n", e.what());
-	//	ExitService(1);
-	//}
+	}
+	catch (const std::exception &e) {
+		fprintf(stderr, "Uncaught exception: %s\n", e.what());
+		ExitService(1);
+	}
 };
 
 int wmain(int argc, wchar_t *argv[]) {

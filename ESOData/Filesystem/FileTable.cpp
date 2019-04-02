@@ -13,11 +13,11 @@ namespace esodata {
 		return stream >> entry.localFileKey >> entry.nameOffset >> entry.nameHash;
 	}
 
-	SerializationStream &operator <<(SerializationStream &stream, const FileTableUnknown &entry) {
+	SerializationStream &operator <<(SerializationStream &stream, const FileTableAdditionalData &entry) {
 		return stream << entry.unknown1;
 	}
 
-	SerializationStream &operator >>(SerializationStream &stream, FileTableUnknown &entry) {
+	SerializationStream &operator >>(SerializationStream &stream, FileTableAdditionalData &entry) {
 		return stream >> entry.unknown1;
 	}
 
@@ -31,7 +31,7 @@ namespace esodata {
 			<< table.recordCount
 			<< table.nameHashToLocalId
 			<< table.entries
-			<< table.unknown4
+			<< table.additionalData
 			<< table.nameHeap
 			<< FileTableExpectedSignature;
 	}
@@ -50,7 +50,7 @@ namespace esodata {
 			>> table.recordCount
 			>> table.nameHashToLocalId
 			>> table.entries
-			>> table.unknown4
+			>> table.additionalData
 			>> table.nameHeap;
 
 		stream >> signature;

@@ -64,6 +64,8 @@ private:
 	bool parseByIDName(const std::wstring &name, uint64_t &firstID, uint64_t &lastID);
 	static void byIdSplit(uint64_t pos, uint64_t first, uint64_t last, uint8_t &byte, uint64_t &next);
 
+	static void normalizeName(std::wstring &name);
+
 	std::mutex m_runMutex;
 	bool m_run;
 	std::condition_variable m_runCondvar;

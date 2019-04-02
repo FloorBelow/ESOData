@@ -59,10 +59,7 @@ bool ProjectedFilesystem::parseByIDName(const std::wstring &initialPath, uint64_
 			auto byte = std::stoul(thisName, nullptr, 16);
 
 			uint64_t mask;
-			if (position == 7)
-				mask = 0;
-			else
-				mask = ~0ULL >> ((position + 1) * 8);
+			mask = ~(0xFFULL << ((7 - position) * 8));
 
 			firstID = (firstID & mask) | (static_cast<uint64_t>(byte) << ((7 - position) * 8));
 			lastID = (lastID & mask) | (static_cast<uint64_t>(byte) << ((7 - position) * 8));
@@ -132,6 +129,8 @@ void ProjectedFilesystem::initialize(const std::string &rootDirectory, const std
 	stream.clear();
 
 	if (recreate) {
+		std::filesystem::create_directories(rootDirectory);
+
 		stream.exceptions(std::ios::failbit | std::ios::badbit | std::ios::eofbit);
 		struct FileGuard {
 			bool success;
@@ -179,6 +178,32 @@ void ProjectedFilesystem::initialize(const std::string &rootDirectory, const std
 	m_fs.enumerateFiles([this](uint64_t key, size_t size) {
 		m_files.emplace(key, size);
 	});
+
+	createInode(L"\\by-id\\placeholder");
+
+	m_fs.enumerateFileNames([this](const std::string &name, uint64_t key) {
+		auto fileIt = m_files.find(key);
+		if (fileIt == m_files.end()) {
+			fprintf(stderr, "File '%s' (key %016llX) does not exist\n", name.c_str(), key);
+		}
+		else {
+
+			auto normalized = archiveparse::utf8ToWide(name);
+			normalizeName(normalized);
+			auto inode = createInode(normalized);
+			inode->fullCanonicalPath = normalized;
+			inode->fileKey = key;
+			inode->info.IsDirectory = FALSE;
+			inode->info.FileSize = fileIt->second;
+		}
+	});
+}
+
+void ProjectedFilesystem::normalizeName(std::wstring &name) {
+	for (auto &ch : name) {
+		if (ch == L'/')
+			ch = L'\\';
+	}
 }
 
 void ProjectedFilesystem::run() {

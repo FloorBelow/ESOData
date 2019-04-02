@@ -33,7 +33,33 @@ namespace esodata {
 		auto fileTable = std::make_unique<FileTable>();
 		stream >> *fileTable;
 
+		fileTable->globalIdPrefix = fileTableKey & 0xFFFFFFFE00000000ULL;
+
 		m_fileTables.emplace_back(std::move(fileTable));
+	}
+
+	void Filesystem::enumerateFileNames(std::function<void(const std::string &name, uint64_t key)> &&enumerator) {
+		for (const auto &tablePtr : m_fileTables) {
+			const auto &table = *tablePtr;
+
+			for (const auto &entry : table.entries) {
+				auto key = entry.second.localFileKey | table.globalIdPrefix;
+
+				auto nameBegin = table.nameHeap.data.begin() + entry.second.nameOffset;
+				auto nameEnd = std::find(nameBegin, table.nameHeap.data.end(), '\0');
+				std::string name(nameBegin, nameEnd);
+				
+#if 0
+				auto additionalIt = table.additionalData.find(entry.first);
+				if (additionalIt != table.additionalData.end()) {
+					const auto &additionalData = (*additionalIt).second;
+
+					__debugbreak();
+				}
+#endif
+				enumerator(name, key);
+			}
+		}
 	}
 
 	void Filesystem::enumerateFiles(std::function<void(uint64_t, size_t size)> &&enumerator) {

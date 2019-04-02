@@ -142,6 +142,9 @@ namespace esodata {
 		Iterator find(const Key &key) const {
 			size_t hashSize = type3Data.hashTable.data.size();
 
+			if (hashSize == 0)
+				return end();
+
 			size_t bucket = hashData64(reinterpret_cast<const unsigned char *>(&key), sizeof(key)) % hashSize;
 
 			for (size_t chain = 0; chain < hashSize; chain++) {
