@@ -22,7 +22,7 @@
 #include <snappy.h>
 
 namespace esodata {
-	Archive::Archive(const std::string &manifestFilename) {
+	Archive::Archive(const std::string &manifestFilename, bool needPreciseSizes) {
 		{
 			auto data = readWholeFile(manifestFilename);
 			InputSerializationStream stream(data.data(), data.data() + data.size());
@@ -71,9 +71,14 @@ namespace esodata {
 			for (auto it = m_manifest.body.data.files.begin(); it != m_manifest.body.data.files.end(); it++) {
 				auto &info = (*it).second;
 
-				std::vector<unsigned char> data;
-				readFileByKey((*it).first, data);
-				info.cachedSize = data.size();
+				if (needPreciseSizes) {
+					std::vector<unsigned char> data;
+					readFileByKey((*it).first, data);
+					info.cachedSize = data.size();
+				}
+				else {
+					info.cachedSize = info.uncompressedSize;
+				}
 			}
 		}
 	}
@@ -148,14 +153,14 @@ namespace esodata {
 
 			data.erase(data.begin(), data.begin() + stream.getCurrentPosition());
 
-			CNGKey key = CNGKey::importDERPublicKey(signature.publicKey.data);
+			CNGKey key = CNGKey::importDERPublicKey(signature.publicKey);
 			CNGAlgorithmProvider sha1Provider(BCRYPT_SHA1_ALGORITHM, MS_PRIMITIVE_PROVIDER, 0);
 			CNGHash hash(sha1Provider, nullptr, 0, 0);
 			hash.hashData(data.data(), data.size());
 			std::vector<uint8_t> digest;
 			hash.finish(digest);
 
-			if (!key.verifySignature(nullptr, digest.data(), digest.size(), signature.signature.data.data(), signature.signature.data.size(), 0)) {
+			if (!key.verifySignature(nullptr, digest.data(), digest.size(), signature.signature.data(), signature.signature.size(), 0)) {
 				std::stringstream sstream;
 				sstream << "Signature mismatch for " << std::hex << key;
 				throw std::runtime_error(sstream.str());

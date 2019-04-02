@@ -32,7 +32,7 @@ namespace esodata {
 			<< table.nameHashToLocalId
 			<< table.entries
 			<< table.additionalData
-			<< table.nameHeap
+			<< makeSizedVector<uint32_t>(table.nameHeap)
 			<< FileTableExpectedSignature;
 	}
 
@@ -51,7 +51,7 @@ namespace esodata {
 			>> table.nameHashToLocalId
 			>> table.entries
 			>> table.additionalData
-			>> table.nameHeap;
+			>> makeSizedVector<uint32_t>(table.nameHeap);
 
 		stream >> signature;
 

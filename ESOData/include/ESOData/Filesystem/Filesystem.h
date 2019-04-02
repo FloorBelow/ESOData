@@ -18,12 +18,13 @@ namespace esodata {
 		Filesystem(const Filesystem &other) = delete;
 		Filesystem &operator =(const Filesystem &other) = delete;
 
-		void addManifest(const std::string &filename);
+		void addManifest(const std::string &filename, bool needPreciseSizes = true);
 
 		void loadFileTable(uint64_t fileTableKey);
 		void enumerateFileNames(std::function<void(const std::string &name, uint64_t key)> &&enumerator);
 
-		std::vector<unsigned char> readFileByKey(uint64_t key);
+		bool tryReadFileByKey(uint64_t key, std::vector<unsigned char> &data) const;
+		std::vector<unsigned char> readFileByKey(uint64_t key) const;
 		void enumerateFiles(std::function<void(uint64_t key, size_t size)> &&enumerator);
 
 	private:

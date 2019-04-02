@@ -62,4 +62,25 @@ namespace esodata {
 		stream.readData(reinterpret_cast<unsigned char *>(value.data()), value.size());
 		return stream;
 	}
+
+	SerializationStream &operator <<(SerializationStream &stream, const std::string &value) {
+		stream << static_cast<uint16_t>(value.size());
+
+		auto region = stream.getRegionForWrite(value.size() + 1);
+		memcpy(region, value.c_str(), value.size() + 1);
+
+		return stream;
+	}
+
+	SerializationStream &operator >>(SerializationStream &stream, std::string &value) {
+		uint16_t length;
+		stream >> length;
+
+		auto region = stream.getRegionForRead(length + 1);
+
+		value.assign(reinterpret_cast<const char *>(region),
+			reinterpret_cast<const char *>(region) + length);
+
+		return stream;
+	}
 }

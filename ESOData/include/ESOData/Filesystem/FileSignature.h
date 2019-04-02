@@ -6,8 +6,8 @@
 namespace esodata {
 	struct FileSignature {
 		uint32_t unknown;
-		SizedVector<uint32_t, uint8_t> publicKey;
-		SizedVector<uint32_t, uint8_t> signature;
+		std::vector<uint8_t> publicKey;
+		std::vector<uint8_t> signature;
 	};
 
 	SerializationStream &operator <<(SerializationStream &stream, const FileSignature &signature);

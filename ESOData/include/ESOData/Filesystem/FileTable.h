@@ -31,7 +31,7 @@ namespace esodata {
 		HashTable<uint64_t, uint32_t> nameHashToLocalId;
 		HashTable<uint32_t, FileTableEntry> entries;
 		HashTable<uint32_t, FileTableAdditionalData> additionalData;
-		SizedVector<uint32_t, char> nameHeap;
+		std::vector<char> nameHeap;
 
 		uint64_t globalIdPrefix;
 	};

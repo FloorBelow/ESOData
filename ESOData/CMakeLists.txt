@@ -49,11 +49,23 @@ set(serialization_sources
 	Serialization/SerializationStream.cpp
 )
 
+set(world_sources
+	include/ESOData/World/FixtureFile.h
+	include/ESOData/World/WorldAddressing.h
+	include/ESOData/World/WorldTableOfContents.h
+	include/ESOData/World/WorldTerrain.h
+	World/FixtureFile.cpp
+	World/WorldAddressing.cpp
+	World/WorldTableOfContents.cpp
+	World/WorldTerrain.cpp
+)
+
 add_library(ESOData STATIC 
 	${cryptography_sources}
 	${filesystem_sources}
 	${io_sources}
 	${serialization_sources}
+	${world_sources}
 )
 
 target_include_directories(ESOData PUBLIC include)
@@ -65,3 +77,4 @@ source_group(Cryptography FILES ${cryptography_sources})
 source_group(Filesystem FILES ${filesystem_sources})
 source_group(IO FILES ${io_sources})
 source_group(Serialization FILES ${serialization_sources})
+source_group(World FILES ${world_sources})

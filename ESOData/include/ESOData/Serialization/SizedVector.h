@@ -6,7 +6,11 @@
 namespace esodata {
 	template<typename Size, typename Data>
 	struct SizedVector {
-		std::vector<Data> data;
+		SizedVector(std::vector<Data> &data) : data(data) {
+
+		}
+
+		std::vector<Data> &data;
 	};
 
 	template<typename Size, typename Data>
@@ -21,6 +25,11 @@ namespace esodata {
 		stream >> length;
 		vector.data.resize(length);
 		return stream >> vector.data;
+	}
+
+	template<typename Size, typename Data>
+	SizedVector<Size, Data> makeSizedVector(const std::vector<Data> &vector) {
+		return SizedVector<Size, Data>(const_cast<std::vector<Data> &>(vector));
 	}
 }
 

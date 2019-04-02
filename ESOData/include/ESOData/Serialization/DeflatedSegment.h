@@ -14,8 +14,17 @@ namespace esodata {
 
 	template<typename T, ByteswapMode Mode = ByteswapMode::Keep>
 	struct DeflatedSegment {
-		T data;
+		DeflatedSegment(T &data) : data(data) {
+
+		}
+
+		T &data;
 	};
+
+	template<typename T, ByteswapMode Mode = ByteswapMode::Keep>
+	DeflatedSegment<T, Mode> makeDeflatedSegment(const T &val) {
+		return DeflatedSegment<T, Mode>(const_cast<T &>(val));
+	}
 
 	template<typename T, ByteswapMode Mode>
 	SerializationStream &operator <<(SerializationStream &stream, const DeflatedSegment<T, Mode> &segment) {

@@ -9,21 +9,30 @@ namespace esodata {
 
 	Filesystem::~Filesystem() = default;
 
-	void Filesystem::addManifest(const std::string &filename) {
-		m_archives.emplace_back(std::make_unique<Archive>(filename));
+	void Filesystem::addManifest(const std::string &filename, bool needPreciseSizes) {
+		m_archives.emplace_back(std::make_unique<Archive>(filename, needPreciseSizes));
 	}
 	
-	std::vector<unsigned char> Filesystem::readFileByKey(uint64_t key) {
+	std::vector<unsigned char> Filesystem::readFileByKey(uint64_t key) const {
 		std::vector<unsigned char> data;
+
+		if (!tryReadFileByKey(key, data)) {
+			std::stringstream sstream;
+			sstream << "File not found: " << std::hex << key;
+			throw std::runtime_error(sstream.str());
+		}
+
+		return data;
+	}
+
+	bool Filesystem::tryReadFileByKey(uint64_t key, std::vector<unsigned char> &data) const {
 		for (const auto &archive : m_archives) {
 			if (archive->readFileByKey(key, data)) {
-				return data;
+				return true;
 			}
 		}
 
-		std::stringstream sstream;
-		sstream << "File not found: " << std::hex << key;
-		throw std::runtime_error(sstream.str());
+		return false;
 	}
 
 	void Filesystem::loadFileTable(uint64_t fileTableKey) {
@@ -45,8 +54,8 @@ namespace esodata {
 			for (const auto &entry : table.entries) {
 				auto key = entry.second.localFileKey | table.globalIdPrefix;
 
-				auto nameBegin = table.nameHeap.data.begin() + entry.second.nameOffset;
-				auto nameEnd = std::find(nameBegin, table.nameHeap.data.end(), '\0');
+				auto nameBegin = table.nameHeap.begin() + entry.second.nameOffset;
+				auto nameEnd = std::find(nameBegin, table.nameHeap.end(), '\0');
 				std::string name(nameBegin, nameEnd);
 				
 #if 0

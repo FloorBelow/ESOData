@@ -13,7 +13,7 @@
 namespace esodata {
 	class Archive {
 	public:
-		explicit Archive(const std::string &manifestFilename);
+		explicit Archive(const std::string &manifestFilename, bool needPreciseSizes);
 		~Archive();
 
 		Archive(const Archive &other) = delete;

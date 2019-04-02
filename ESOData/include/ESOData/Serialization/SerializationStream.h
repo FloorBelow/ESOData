@@ -127,6 +127,9 @@ namespace esodata {
 	template<>
 	SerializationStream &operator >>(SerializationStream &stream, std::vector<char> &value);
 
+	SerializationStream &operator <<(SerializationStream &stream, const std::string &value);
+	SerializationStream &operator >>(SerializationStream &stream, std::string &value);
+
 }
 
 #endif
