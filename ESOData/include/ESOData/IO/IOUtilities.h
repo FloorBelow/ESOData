@@ -3,9 +3,10 @@
 
 #include <vector>
 #include <string>
+#include <filesystem>
 
 namespace esodata {
-	std::vector<unsigned char> readWholeFile(const std::string &filename);
+	std::vector<unsigned char> readWholeFile(const std::filesystem::path &filename);
 }
 
 #endif

@@ -5,10 +5,10 @@
 #include <fstream>
 
 namespace esodata {
-	std::vector<unsigned char> readWholeFile(const std::string &filename) {
+	std::vector<unsigned char> readWholeFile(const std::filesystem::path &filename) {
 		std::ifstream stream;
 		stream.exceptions(std::ios::failbit | std::ios::eofbit | std::ios::badbit);
-		stream.open(archiveparse::utf8ToWide(filename).c_str(), std::ios::in | std::ios::binary);
+		stream.open(filename, std::ios::in | std::ios::binary);
 
 		stream.seekg(0, std::ios::end);
 		auto size = static_cast<size_t>(stream.tellg());

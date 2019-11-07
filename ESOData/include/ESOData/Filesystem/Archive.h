@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <functional>
+#include <filesystem>
 
 #include <ESOData/Filesystem/MNFFile.h>
 
@@ -13,7 +14,7 @@
 namespace esodata {
 	class Archive {
 	public:
-		explicit Archive(const std::string &manifestFilename, bool needPreciseSizes);
+		explicit Archive(const std::filesystem::path &manifestFilename, bool needPreciseSizes);
 		~Archive();
 
 		Archive(const Archive &other) = delete;

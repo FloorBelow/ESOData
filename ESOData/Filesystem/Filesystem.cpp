@@ -9,7 +9,7 @@ namespace esodata {
 
 	Filesystem::~Filesystem() = default;
 
-	void Filesystem::addManifest(const std::string &filename, bool needPreciseSizes) {
+	void Filesystem::addManifest(const std::filesystem::path &filename, bool needPreciseSizes) {
 		m_archives.emplace_back(std::make_unique<Archive>(filename, needPreciseSizes));
 	}
 	

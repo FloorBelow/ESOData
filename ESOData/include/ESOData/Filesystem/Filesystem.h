@@ -5,6 +5,7 @@
 #include <vector>
 #include <memory>
 #include <functional>
+#include <filesystem>
 
 namespace esodata {
 	class Archive;
@@ -18,7 +19,7 @@ namespace esodata {
 		Filesystem(const Filesystem &other) = delete;
 		Filesystem &operator =(const Filesystem &other) = delete;
 
-		void addManifest(const std::string &filename, bool needPreciseSizes = true);
+		void addManifest(const std::filesystem::path &filename, bool needPreciseSizes = true);
 
 		void loadFileTable(uint64_t fileTableKey);
 		void enumerateFileNames(std::function<void(const std::string &name, uint64_t key)> &&enumerator);

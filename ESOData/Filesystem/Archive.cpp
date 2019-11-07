@@ -22,7 +22,7 @@
 #include <snappy.h>
 
 namespace esodata {
-	Archive::Archive(const std::string &manifestFilename, bool needPreciseSizes) {
+	Archive::Archive(const std::filesystem::path &manifestFilename, bool needPreciseSizes) {
 		{
 			auto data = readWholeFile(manifestFilename);
 			InputSerializationStream stream(data.data(), data.data() + data.size());
@@ -32,11 +32,12 @@ namespace esodata {
 
 		m_files.reserve(m_manifest.dataFileCount());
 
+		auto filenameString = archiveparse::wideToUtf8(manifestFilename.wstring());
+
 		for (size_t index = 0, count = m_manifest.dataFileCount(); index < count; index++) {
 			std::stringstream name;
-
-			auto delim = manifestFilename.find_last_of('.');
-			name << manifestFilename.substr(0, delim);
+			auto delim = filenameString.find_last_of('.');
+			name << filenameString.substr(0, delim);
 			name.width(4);
 			name.fill('0');
 			name << index;
@@ -53,7 +54,7 @@ namespace esodata {
 			OVERLAPPED overlapped;
 			ZeroMemory(&overlapped, sizeof(overlapped));
 
-			if(!ReadFile(handle.get(), headerData.data(), headerData.size(), &bytesRead, &overlapped))
+			if(!ReadFile(handle.get(), headerData.data(), static_cast<DWORD>(headerData.size()), &bytesRead, &overlapped))
 				throw archiveparse::WindowsError();
 
 			if (bytesRead != headerData.size())
@@ -99,7 +100,7 @@ namespace esodata {
 		data.resize(entry.compressedSize);
 
 		DWORD bytesRead;
-		if(!ReadFile(m_files[entry.archiveIndex].get(), data.data(), data.size(), &bytesRead, &overlapped))
+		if(!ReadFile(m_files[entry.archiveIndex].get(), data.data(), static_cast<DWORD>(data.size()), &bytesRead, &overlapped))
 			throw archiveparse::WindowsError();
 
 		if (bytesRead != data.size())
@@ -135,7 +136,7 @@ namespace esodata {
 			throw std::logic_error("unsupported compression type");
 		}
 
-		auto checksum = ~crc32(0xffffffff, data.data(), data.size());
+		auto checksum = ~crc32(0xffffffff, data.data(), static_cast<uInt>(data.size()));
 
 		if (checksum != entry.fileCRC32) {
 			std::stringstream error;
