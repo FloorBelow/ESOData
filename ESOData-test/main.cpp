@@ -64,6 +64,10 @@ int main(int argc, char *argv[]) {
 					}
 
 					printf("  fixture cell %u, %u\n", cellX, cellY);
+
+					for (const auto &item : fixtures->placedObjects) {
+						printf("    model %08X\n", item.model);
+					}
 				}
 				else {
 

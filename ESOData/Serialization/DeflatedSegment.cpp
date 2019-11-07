@@ -2,6 +2,8 @@
 
 #include <zlib.h>
 
+#include <stdexcept>
+
 namespace esodata {
 
 	static void *zlibAlloc(void *opaque, unsigned int items, unsigned int size) {

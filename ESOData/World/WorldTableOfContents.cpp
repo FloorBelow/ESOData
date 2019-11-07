@@ -4,6 +4,8 @@
 
 #include <ESOData/Serialization/InputSerializationStream.h>
 
+#include <stdexcept>
+
 namespace esodata {
 	std::unique_ptr<WorldTableOfContents> WorldTableOfContents::readFromFilesystem(const Filesystem &filesystem, uint64_t fileId) {
 		std::vector<unsigned char> data;

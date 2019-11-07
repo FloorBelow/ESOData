@@ -2,6 +2,8 @@
 
 #include <ESOData/Serialization/SerializationStream.h>
 
+#include <stdexcept>
+
 namespace esodata {
 
 	SerializationStream &operator <<(SerializationStream &stream, const DataFileHeader &header) {

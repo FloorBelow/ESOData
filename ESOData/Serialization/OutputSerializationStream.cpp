@@ -1,5 +1,7 @@
 #include <ESOData/Serialization/OutputSerializationStream.h>
 
+#include <stdexcept>
+
 namespace esodata {
 	OutputSerializationStream::OutputSerializationStream() : m_targetStream(nullptr), m_position(0), m_offset(0) {
 

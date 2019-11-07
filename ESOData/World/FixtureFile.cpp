@@ -5,6 +5,8 @@
 #include <ESOData/Serialization/InputSerializationStream.h>
 #include <ESOData/Serialization/SizedVector.h>
 
+#include <stdexcept>
+
 namespace esodata {
 
 	std::unique_ptr<FixtureFile> FixtureFile::readFromFilesystem(const Filesystem &filesystem, uint64_t fileId) {
