@@ -47,7 +47,7 @@ namespace esodata {
 		m_fileTables.emplace_back(std::move(fileTable));
 	}
 
-	void Filesystem::enumerateFileNames(std::function<void(const std::string &name, uint64_t key)> &&enumerator) {
+	void Filesystem::enumerateFileNames(std::function<void(const std::string &name, uint64_t key)> &&enumerator) const {
 		for (const auto &tablePtr : m_fileTables) {
 			const auto &table = *tablePtr;
 
@@ -71,7 +71,7 @@ namespace esodata {
 		}
 	}
 
-	void Filesystem::enumerateFiles(std::function<void(uint64_t, size_t size)> &&enumerator) {
+	void Filesystem::enumerateFiles(std::function<void(uint64_t, size_t size)> &&enumerator) const {
 		for (const auto &archive : m_archives) {
 			archive->enumerateFiles(std::move(enumerator));
 		}

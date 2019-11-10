@@ -22,11 +22,11 @@ namespace esodata {
 		void addManifest(const std::filesystem::path &filename, bool needPreciseSizes = true);
 
 		void loadFileTable(uint64_t fileTableKey);
-		void enumerateFileNames(std::function<void(const std::string &name, uint64_t key)> &&enumerator);
+		void enumerateFileNames(std::function<void(const std::string &name, uint64_t key)> &&enumerator) const;
 
 		bool tryReadFileByKey(uint64_t key, std::vector<unsigned char> &data) const;
 		std::vector<unsigned char> readFileByKey(uint64_t key) const;
-		void enumerateFiles(std::function<void(uint64_t key, size_t size)> &&enumerator);
+		void enumerateFiles(std::function<void(uint64_t key, size_t size)> &&enumerator) const;
 
 	private:
 		std::vector<std::unique_ptr<Archive>> m_archives;
