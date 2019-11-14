@@ -26,6 +26,11 @@ namespace esodata {
 		return DeflatedSegment<T, Mode>(const_cast<T &>(val));
 	}
 
+	template<typename T, ByteswapMode Mode = ByteswapMode::Keep>
+	DeflatedSegment<T, Mode> makeDeflatedSegment(T& val) {
+		return DeflatedSegment<T, Mode>(val);
+	}
+
 	template<typename T, ByteswapMode Mode>
 	SerializationStream &operator <<(SerializationStream &stream, const DeflatedSegment<T, Mode> &segment) {
 		OutputSerializationStream nestedStream;

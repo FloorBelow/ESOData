@@ -117,10 +117,10 @@ namespace esodata {
 	}
 
 	template<>
-	SerializationStream &operator <<(SerializationStream &stream, const std::vector<uint8_t> &value);
+	SerializationStream &operator <<(SerializationStream &stream, const std::vector<unsigned char> &value);
 
 	template<>
-	SerializationStream &operator >>(SerializationStream &stream, std::vector<uint8_t> &value);
+	SerializationStream &operator >>(SerializationStream &stream, std::vector<unsigned char> &value);
 
 	template<>
 	SerializationStream &operator <<(SerializationStream &stream, const std::vector<char> &value);
