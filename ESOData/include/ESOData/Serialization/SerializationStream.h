@@ -28,6 +28,9 @@ namespace esodata {
 		void writeArithmetic(const unsigned char *data, size_t dataSize);
 		void readArithmetic(unsigned char *data, size_t dataSize);
 
+		void writeFloat(const unsigned char* data, size_t dataSize);
+		void readFloat(unsigned char* data, size_t dataSize);
+
 		void writeData(const unsigned char *data, size_t dataSize);
 		void readData(unsigned char *data, size_t dataSize);
 
@@ -42,14 +45,26 @@ namespace esodata {
 	};
 
 	template<typename T>
-	typename std::enable_if<std::is_arithmetic<T>::value, SerializationStream &>::type operator <<(SerializationStream &stream, T value) {
+	typename std::enable_if<std::is_integral<T>::value, SerializationStream &>::type operator <<(SerializationStream &stream, T value) {
 		stream.writeArithmetic(reinterpret_cast<const unsigned char *>(&value), sizeof(value));
 		return stream;
 	}
 
 	template<typename T>
-	typename std::enable_if<std::is_arithmetic<T>::value, SerializationStream &>::type operator >>(SerializationStream &stream, T &value) {
+	typename std::enable_if<std::is_integral<T>::value, SerializationStream &>::type operator >>(SerializationStream &stream, T &value) {
 		stream.readArithmetic(reinterpret_cast<unsigned char *>(&value), sizeof(value));
+		return stream;
+	}
+
+	template<typename T>
+	typename std::enable_if<std::is_floating_point<T>::value, SerializationStream&>::type operator <<(SerializationStream& stream, T value) {
+		stream.writeFloat(reinterpret_cast<const unsigned char*>(&value), sizeof(value));
+		return stream;
+	}
+
+	template<typename T>
+	typename std::enable_if<std::is_floating_point<T>::value, SerializationStream&>::type operator >>(SerializationStream& stream, T& value) {
+		stream.readFloat(reinterpret_cast<unsigned char*>(&value), sizeof(value));
 		return stream;
 	}
 

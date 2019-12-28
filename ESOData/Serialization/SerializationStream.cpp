@@ -29,6 +29,26 @@ namespace esodata {
 		}
 	}
 
+	void SerializationStream::writeFloat(const unsigned char* data, size_t dataSize) {
+		if (!m_swapEndian) {
+			auto interim = getRegionForWrite(dataSize);
+			std::reverse_copy(data, data + dataSize, interim);
+		}
+		else {
+			writeData(data, dataSize);
+		}
+	}
+
+	void SerializationStream::readFloat(unsigned char* data, size_t dataSize) {
+		if (!m_swapEndian) {
+			auto interim = getRegionForRead(dataSize);
+			std::reverse_copy(interim, interim + dataSize, data);
+		}
+		else {
+			readData(data, dataSize);
+		}
+	}
+
 	void SerializationStream::writeData(const unsigned char *data, size_t dataSize) {
 		auto region = getRegionForWrite(dataSize);
 		memcpy(region, data, dataSize);
