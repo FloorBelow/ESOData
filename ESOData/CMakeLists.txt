@@ -58,6 +58,11 @@ set(filesystem_sources
 	Filesystem/MNFFile.cpp
 )
 
+set(granny2_sources
+	include/ESOData/Granny2/Granny2TypeHelpers.h
+	Granny2/Granny2TypeHelpers.cpp
+)
+
 set(io_sources
 	include/ESOData/IO/IOUtilities.h
 	IO/IOUtilities.cpp
@@ -96,13 +101,14 @@ add_library(ESOData STATIC
 	${depot_sources}
 	${directives_sources}
 	${filesystem_sources}
+	${granny2_sources}
 	${io_sources}
 	${serialization_sources}
 	${world_sources}
 )
 
 target_include_directories(ESOData PUBLIC include)
-target_link_libraries(ESOData PRIVATE zlib bcrypt crypt32 snappy)
+target_link_libraries(ESOData PRIVATE zlib bcrypt crypt32 snappy granny)
 target_link_libraries(ESOData PUBLIC archiveparse)
 target_compile_definitions(ESOData PRIVATE -DUNICODE -D_UNICODE -DWIN32_LEAN_AND_MEAN -D_VC_EXTRALEAN -DNOMINMAX)
 
@@ -111,6 +117,7 @@ source_group(Database FILES ${database_sources})
 source_group(Depot FILES ${depot_sources})
 source_group(Directives FILES ${directives_sources})
 source_group(Filesystem FILES ${filesystem_sources})
+source_group(Granny2 FILES ${granny2_sources})
 source_group(IO FILES ${io_sources})
 source_group(Serialization FILES ${serialization_sources})
 source_group(World FILES ${world_sources})
