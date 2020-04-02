@@ -11,6 +11,36 @@ set(cryptography_sources
 	Cryptography/CNGSecret.cpp
 )
 
+set(database_sources
+	include/ESOData/Database/ESODatabase.h
+	include/ESOData/Database/ESODatabaseDef.h
+	include/ESOData/Database/ESODatabaseParsingContext.h
+	include/ESOData/Database/ESODatabaseRecord.h
+	Database/ESODatabase.cpp
+	Database/ESODatabaseDef.cpp
+	Database/ESODatabaseParsingContext.cpp
+	Database/ESODatabaseRecord.cpp
+)
+
+set(depot_sources
+	include/ESOData/Depot/ESODepot.h
+	include/ESOData/Depot/IDepotLoadingCallback.h
+	Depot/ESODepot.cpp
+)
+
+set(directives_sources
+	include/ESOData/Directives/DatabaseDirectiveFile.h
+	include/ESOData/Directives/DirectiveFile.h
+	include/ESOData/Directives/FilenameHarvestingDirectiveFile.h
+	include/ESOData/Directives/FilesystemDirectiveFile.h
+	include/ESOData/Directives/SupportedVersionsDirectiveFile.h
+	Directives/DatabaseDirectiveFile.cpp
+	Directives/DirectiveFile.cpp
+	Directives/FilenameHarvestingDirectiveFile.cpp
+	Directives/FilesystemDirectiveFile.cpp
+	Directives/SupportedVersionsDirectiveFile.cpp
+)
+
 set(filesystem_sources
 	include/ESOData/Filesystem/Archive.h
 	include/ESOData/Filesystem/DataFileHeader.h
@@ -62,6 +92,9 @@ set(world_sources
 
 add_library(ESOData STATIC 
 	${cryptography_sources}
+	${database_sources}
+	${depot_sources}
+	${directives_sources}
 	${filesystem_sources}
 	${io_sources}
 	${serialization_sources}
@@ -74,6 +107,9 @@ target_link_libraries(ESOData PUBLIC archiveparse)
 target_compile_definitions(ESOData PRIVATE -DUNICODE -D_UNICODE -DWIN32_LEAN_AND_MEAN -D_VC_EXTRALEAN -DNOMINMAX)
 
 source_group(Cryptography FILES ${cryptography_sources})
+source_group(Database FILES ${database_sources})
+source_group(Depot FILES ${depot_sources})
+source_group(Directives FILES ${directives_sources})
 source_group(Filesystem FILES ${filesystem_sources})
 source_group(IO FILES ${io_sources})
 source_group(Serialization FILES ${serialization_sources})
