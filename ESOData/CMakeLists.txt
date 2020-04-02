@@ -59,7 +59,9 @@ set(filesystem_sources
 )
 
 set(granny2_sources
+	include/ESOData/Granny2/ESOGraphicsTypes.h
 	include/ESOData/Granny2/Granny2TypeHelpers.h
+	Granny2/ESOGraphicsTypes.cpp
 	Granny2/Granny2TypeHelpers.cpp
 )
 
