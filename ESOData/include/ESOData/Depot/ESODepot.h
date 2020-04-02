@@ -73,7 +73,7 @@ namespace esodata {
 		esodata::ValidateDepotResult validateDepot();
 
 		unsigned int getExpectedNumberOfLoadingSteps() const;
-		bool load(IDepotLoadingCallback* callback);
+		bool load(IDepotLoadingCallback* callback = nullptr);
 
 	private:
 		bool queryDepotVersion();

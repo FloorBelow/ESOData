@@ -121,3 +121,8 @@ source_group(Granny2 FILES ${granny2_sources})
 source_group(IO FILES ${io_sources})
 source_group(Serialization FILES ${serialization_sources})
 source_group(World FILES ${world_sources})
+
+set_target_properties(ESOData PROPERTIES
+	CXX_STANDARD 17
+	CXX_STANDARD_REQUIRED TRUE
+)
