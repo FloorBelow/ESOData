@@ -61,6 +61,7 @@ namespace esodata {
 		std::unordered_map<uint8_t, WorldTerrainEntry> entries;
 
 		static std::unique_ptr<WorldTerrain> readFromFilesystem(const Filesystem &filesystem, uint64_t fileId);
+		static std::unique_ptr<WorldTerrain> readFromData(const std::vector<unsigned char>& data);
 	};
 
 	SerializationStream &operator <<(SerializationStream &stream, const WorldTerrain &obj);

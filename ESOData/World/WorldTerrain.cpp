@@ -5,12 +5,16 @@
 #include <ESOData/Serialization/SizedVector.h>
 
 namespace esodata {
-	std::unique_ptr<WorldTerrain> WorldTerrain::readFromFilesystem(const Filesystem &filesystem, uint64_t fileId) {
+	std::unique_ptr<WorldTerrain> WorldTerrain::readFromFilesystem(const Filesystem& filesystem, uint64_t fileId) {
 		std::vector<unsigned char> data;
 
 		if (!filesystem.tryReadFileByKey(fileId, data))
 			return nullptr;
 
+		return readFromData(data);
+	}
+
+	std::unique_ptr<WorldTerrain> WorldTerrain::readFromData(const std::vector<unsigned char> &data) {
 		InputSerializationStream serializer(data.data(), data.data() + data.size());
 
 		auto instance = std::make_unique<WorldTerrain>();
