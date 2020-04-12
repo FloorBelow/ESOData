@@ -1,5 +1,5 @@
 STRUCT TintHueDef_BrightnessArray
-	ARRAY FOREIGN_KEY TintDef BrightnessArray
+	ARRAY FOREIGN_KEY TintDef BrightnessArrayTints
 END
 
 DEF 242 TintHueDef VERSION 2

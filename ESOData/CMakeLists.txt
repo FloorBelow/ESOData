@@ -12,10 +12,24 @@ set(cryptography_sources
 )
 
 set(database_sources
+	include/ESOData/Database/AssetReference.h
+	include/ESOData/Database/CompiledDef.h
+	include/ESOData/Database/DatabaseAddressing.h
+	include/ESOData/Database/DatabaseManager.h
+	include/ESOData/Database/DefFile.h
+	include/ESOData/Database/DefFileIndex.h
 	include/ESOData/Database/ESODatabase.h
 	include/ESOData/Database/ESODatabaseDef.h
 	include/ESOData/Database/ESODatabaseParsingContext.h
 	include/ESOData/Database/ESODatabaseRecord.h
+	include/ESOData/Database/ForeignKey.h
+	include/ESOData/Database/PolymorphicReference.h
+	Database/AssetReference.cpp
+	Database/CompiledDef.cpp
+	Database/DatabaseAddressing.cpp
+	Database/DatabaseManager.cpp
+	Database/DefFile.cpp
+	Database/DefFileIndex.cpp
 	Database/ESODatabase.cpp
 	Database/ESODatabaseDef.cpp
 	Database/ESODatabaseParsingContext.cpp

@@ -18,7 +18,7 @@ DEF 29 FxEmitterDef VERSION 77
 	BOOLEAN Decay
 	BOOLEAN BboxImpactOffset
 	BOOLEAN GroundProjection
-	BOOLEAN ElevateGroundProjectionPriority
+	BOOLEAN ElevateGroundProjectionPriority ; ERROR: DUPLICATE
 	BOOLEAN StatusIcon
 	BOOLEAN SiegeImpact
 	BOOLEAN OnlyVisibleIfAnimHeld
@@ -34,7 +34,7 @@ DEF 29 FxEmitterDef VERSION 77
 	BOOLEAN Rotate180YawIfChoreoLeftToRight
 	BOOLEAN VisibleInThirdPersonCameraOnLocalPlayer
 	BOOLEAN VisibleInFirstPersonCameraOnLocalPlayer
-	BOOLEAN ContinueToLifespanIfParentLost
+	BOOLEAN ContinueToLifespanIfParentLost ; ERROR: DUPLICATE
 	BOOLEAN NoPositionOrRotationUpdate
 	BOOLEAN IgnoreDistanceFade
 	BOOLEAN SiegeAim
@@ -46,11 +46,11 @@ DEF 29 FxEmitterDef VERSION 77
 	BOOLEAN OnlyActiveIfVelocityBelow
 	BOOLEAN DelayStopIfFxAnimPairedCameraActive
 	BOOLEAN ForceIgnoreTrimming
-	BOOLEAN ContinueToLifespanIfParentLost
+	BOOLEAN ContinueToLifespanIfParentLost2 ; ERROR: DUPLICATE
 	BOOLEAN AttemptRestartIfParentLost
 	BOOLEAN AllowDuringLocalPlayerPreview
 	BOOLEAN KeepOnFlyingTargets
-	BOOLEAN ElevateGroundProjectionPriority
+	BOOLEAN ElevateGroundProjectionPriority2 ; ERROR: DUPLICATE
 	BOOLEAN HasMatureContent
 	STRING
 	STRING

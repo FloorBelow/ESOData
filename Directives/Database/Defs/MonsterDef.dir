@@ -173,7 +173,7 @@ DEF 8 MonsterDef VERSION 352
 	BOOLEAN JusticeNeutral
 	BOOLEAN NoAggroDistanceLimit
 	BOOLEAN NoThreatTimeout
-	BOOLEAN IsSkillRespecShrine
+	BOOLEAN IsSkillRespecShrine ; ERROR: DUPLICATE
 	BOOLEAN AttemptAutoEquip
 	BOOLEAN DisableLesserReaction
 	BOOLEAN DisableGreaterReaction
@@ -205,7 +205,7 @@ DEF 8 MonsterDef VERSION 352
 	BOOLEAN DamageTakenCancelsInteract
 	BOOLEAN InteractableWhileStunnedOrDisorientated
 	BOOLEAN CcImmunityIgnoredWhenInteracting
-	BOOLEAN IsSkillRespecShrine
+	BOOLEAN IsSkillRespecShrine2 ; ERROR: DUPLICATE
 	BOOLEAN ; + 23 18
 	BOOLEAN CanBeCCImmune
 	BOOLEAN LeavesConsumableCorpse

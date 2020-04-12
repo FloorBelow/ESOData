@@ -155,7 +155,7 @@ DEF 0 AbilityDef VERSION 437
 	BOOLEAN ; +35 6
 	BOOLEAN ; +35 7
 	BOOLEAN ; +35 8
-	BOOLEAN CastCharging
+	BOOLEAN CastCharging ; ERROR: DUPLICATE
 	BOOLEAN ; +35 10
 	BOOLEAN ; +35 11
 	BOOLEAN ContinuousCastBar
@@ -163,7 +163,7 @@ DEF 0 AbilityDef VERSION 437
 	BOOLEAN UseOnKeyDown
 	BOOLEAN ; +35 15
 	BOOLEAN CanTargetAreaEffects
-	BOOLEAN CastCharging
+	BOOLEAN CastCharging2 ; ERROR: DUPLICATE
 	BOOLEAN ; +35 18
 	BOOLEAN ; +35 19
 	BOOLEAN ShowStacks

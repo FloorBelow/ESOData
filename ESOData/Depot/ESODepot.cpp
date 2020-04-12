@@ -4,7 +4,7 @@
 #include <fstream>
 
 namespace esodata {
-	ESODepot::ESODepot() : m_database(&m_fs) {
+	ESODepot::ESODepot() : m_database(&m_fs), m_dbManager(&m_fs) {
 
 	}
 

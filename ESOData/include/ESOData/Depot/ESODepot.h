@@ -10,6 +10,7 @@
 #include <ESOData/Filesystem/Filesystem.h>
 
 #include <ESOData/Database/ESODatabase.h>
+#include <ESOData/Database/DatabaseManager.h>
 
 namespace esodata {
 	enum class ValidateDepotResult {
@@ -89,6 +90,7 @@ namespace esodata {
 
 		Filesystem m_fs;
 		ESODatabase m_database;
+		DatabaseManager m_dbManager;
 	};
 }
 

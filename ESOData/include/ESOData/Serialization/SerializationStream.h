@@ -83,12 +83,15 @@ namespace esodata {
 
 	template<typename T>
 	SerializationStream &operator <<(SerializationStream &stream, const std::vector<T> &value) {
-		for (auto &entry : value) {
+		for (const auto &entry : value) {
 			stream << entry;
 		}
 
 		return stream;
 	}
+
+	template<>
+	SerializationStream& operator <<<bool>(SerializationStream& stream, const std::vector<bool>& value);
 
 	template<typename T>
 	SerializationStream &operator >>(SerializationStream &stream, std::vector<T> &value) {
@@ -98,6 +101,9 @@ namespace esodata {
 
 		return stream;
 	}
+
+	template<>
+	SerializationStream& operator >><bool>(SerializationStream& stream, std::vector<bool>& value);
 
 	template<typename T, size_t N>
 	SerializationStream &operator <<(SerializationStream &stream, const std::array<T, N> &value) {
@@ -145,6 +151,9 @@ namespace esodata {
 
 	SerializationStream &operator <<(SerializationStream &stream, const std::string &value);
 	SerializationStream &operator >>(SerializationStream &stream, std::string &value);
+
+	SerializationStream& operator <<(SerializationStream& stream, bool value);
+	SerializationStream& operator >>(SerializationStream& stream, bool &value);
 
 }
 

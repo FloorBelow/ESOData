@@ -103,4 +103,39 @@ namespace esodata {
 
 		return stream;
 	}
+
+	SerializationStream& operator <<(SerializationStream& stream, bool value) {
+		uint8_t byte = value ? 1 : 0;
+		return stream << byte;
+	}
+
+	SerializationStream& operator >>(SerializationStream& stream, bool& value) {
+		uint8_t byte;
+
+		auto& result = stream >> byte;
+
+		value = byte != 0;
+
+		return result;
+	}
+
+	template<>
+	SerializationStream& operator <<<bool>(SerializationStream& stream, const std::vector<bool>& value) {
+		for (bool val : value) {
+			stream << val;
+		}
+
+		return stream;
+	}
+
+	template<>
+	SerializationStream& operator >><bool>(SerializationStream& stream, std::vector<bool>& value) {
+		for (auto& val : value) {
+			bool boolVal;
+			stream >> boolVal;
+			val = boolVal;
+		}
+
+		return stream;
+	}
 }

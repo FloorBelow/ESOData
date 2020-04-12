@@ -48,12 +48,12 @@ DEF 112 GlobalFxDataDef VERSION 47
 	FOREIGN_KEY FxDef
 	FOREIGN_KEY FxDef
 	ARRAY STRUCT GlobalFxDataDef_LevelToLevelUpFx SpecificPlayerChampionRankUpFx
-	UINT32 FxDef
-	UINT32 FxDef
-	UINT32 FxDef
-	UINT32 FxDef
-	UINT32 FxDef
-	UINT32 FxDef
+	FOREIGN_KEY FxDef
+	FOREIGN_KEY FxDef
+	FOREIGN_KEY FxDef
+	FOREIGN_KEY FxDef
+	FOREIGN_KEY FxDef
+	FOREIGN_KEY FxDef
 	ARRAY STRUCT GlobalFxDataDef_NodeEntry CharacterFxNodes
 	ARRAY STRUCT GlobalFxDataDef_NodeEntry FixtureFxNodes
 	ARRAY STRUCT GlobalFxDataDef_NodeEntry ItemFxNodes

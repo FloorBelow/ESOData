@@ -1,5 +1,7 @@
 #include <ESOData/Database/ESODatabaseDef.h>
 #include <ESOData/Database/ESODatabaseParsingContext.h>
+#include <ESOData/Database/DatabaseAddressing.h>
+#include <ESOData/Database/DefFile.h>
 
 #include <ESOData/Filesystem/Filesystem.h>
 #include <ESOData/Serialization/InputSerializationStream.h>
@@ -25,49 +27,35 @@ namespace esodata {
 	ESODatabaseDef& ESODatabaseDef::operator =(ESODatabaseDef&& other) = default;
 
 	void ESODatabaseDef::loadDef() {
-		auto defData = m_fs->readFileByKey(0x6000000000000000U | m_id);
+		auto defData = m_fs->readFileByKey(getDefFileId(m_id));
 
-		esodata::InputSerializationStream stream(defData.data(), defData.data() + defData.size());
-		stream.setSwapEndian(true);
+		DefFileHeader header;
+		size_t offset = 0;
+		header.readFromData(defData, offset);
 
-		uint32_t flags = 0;
-		uint32_t itemCount;
-		stream >> itemCount;
-
-		if (itemCount == 0xFAFAEBEBU) {
-			stream >> flags;
-			stream >> itemCount;
-		}
-
-		if (flags != 0x13)
+		if (header.flags != 0x13)
 			throw std::logic_error("flag value of 0x13 is expected");
 
-		uint32_t version;
-		stream >> version;
-
-		if (m_def->version != 0 && m_def->version != version) {
+		if (m_def->version != 0 && m_def->version != header.version) {
 			std::stringstream error;
-			error << "Def file " << m_name << " (" << m_id << ") has unsupported version " << version << " (expected " << version << ").";
+			error << "Def file " << m_name << " (" << m_id << ") has unsupported version " << header.version << " (expected " << m_def->version << ").";
 			throw std::runtime_error(error.str());
 		}
 
-		m_records.resize(itemCount);
-		m_recordLookup.reserve(itemCount);
+		m_records.resize(header.itemCount);
+		m_recordLookup.reserve(header.itemCount);
 
 		const auto& baseDef = m_parsingContext->findStructureByName("BaseDef");
 
 		for (auto& record : m_records) {
-			record.addField("flags").emplace<unsigned long long>(flags);
-			record.addField("version").emplace<unsigned long long>(version);
+			record.addField("flags").emplace<unsigned long long>(header.flags);
+			record.addField("version").emplace<unsigned long long>(header.version);
 
-			uint32_t expectedLength;
-			stream >> expectedLength;
+			DefFileRow row;
+			row.readFromData(defData, offset);
 
-			std::vector<unsigned char> recordData(expectedLength);
-			stream >> esodata::makeDeflatedSegment(recordData);
-
-			esodata::InputSerializationStream contentStream(recordData.data(), recordData.data() + recordData.size());
-			contentStream.setSwapEndian(stream.swapEndian());
+			esodata::InputSerializationStream contentStream(row.recordData.data(), row.recordData.data() + row.recordData.size());
+			contentStream.setSwapEndian(true);
 
 			parseStructureIntoRecord(contentStream, baseDef, record);
 			parseStructureIntoRecord(contentStream, *m_def, record);
