@@ -1,20 +1,20 @@
-ENUM TutorialDefEnum1
+ENUM TutorialDef_Enum1
 	VALUES 0 3
 END
 
-ENUM TutorialDefEnum2
+ENUM TutorialDef_Enum2
 	VALUES 0 2
 END
 
 DEF 177 TutorialDef VERSION 11
 	ENUM TutorialTrigger
-	ENUM TutorialDefEnum1
+	ENUM TutorialDef_Enum1
 	UINT32
 	STRUCT CpStr BodyText
 	UINT8
 	STRUCT CpStr GamepadOverrideBodyText
 	STRUCT CpStr PcGamepadOverrideBodyText
-	ENUM TutorialDefEnum2
+	ENUM TutorialDef_Enum2
 	BOOLEAN AlwaysShow
 	BOOLEAN ForcePlayerToTargetPerformer
 	BOOLEAN ActionRequired

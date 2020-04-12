@@ -1,4 +1,4 @@
-ENUM FxMaterailDefEnum1
+ENUM FxMaterialDef_Enum1
 	VALUES 0 1
 END
 
@@ -88,7 +88,7 @@ DEF 139 FxMaterialDef VERSION 36
 	UINT32
 	UINT32
 	UINT32
-	ENUM FxMaterailDefEnum1
+	ENUM FxMaterialDef_Enum1
 	STRING
 	STRING
 END

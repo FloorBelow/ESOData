@@ -1,4 +1,4 @@
-ENUM FxLightDefEnum1
+ENUM FxLightDef_Enum1
 	VALUES 0 2
 END
 
@@ -10,5 +10,5 @@ DEF 109 FxLightDef VERSION 8
 	FLOAT
 	ENUM FxVisibleToType
 	ENUM FxAttachType
-	ENUM FxLightDefEnum1
+	ENUM FxLightDef_Enum1
 END

@@ -1,21 +1,21 @@
-ENUM RequirementListDefEnum1
+ENUM RequirementListDef_Enum1
 	VALUES 0 2
 END	
 
-ENUM RequirementListDefEnum2
+ENUM RequirementListDef_Enum2
 	VALUES 0 6
 END
 
-ENUM RequirementListDefEnum3
+ENUM RequirementListDef_Enum3
 	VALUES 0 8
 END
 
 STRUCT RequirementListDef_Requirement
 	ENUM RequirementType
 	INT32
-	ENUM RequirementListDefEnum2
+	ENUM RequirementListDef_Enum2
 	INT32
-	ENUM RequirementListDefEnum3
+	ENUM RequirementListDef_Enum3
 	ENUM RequirementTargetType
 	UINT32
 	ENUM RequirementTargetType
@@ -29,7 +29,7 @@ STRUCT RequirementListDef_Requirement
 END
 
 DEF 13 RequirementListDef VERSION 29
-	ENUM RequirementListDefEnum1
+	ENUM RequirementListDef_Enum1
 	INT32
 	INT32
 	UINT32

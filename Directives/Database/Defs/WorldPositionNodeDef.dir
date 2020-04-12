@@ -1,9 +1,9 @@
-ENUM WorldPositionNodeDef_LinkInfoEnum1
+ENUM WorldPositionNodeDef_LinkInfo_Enum1
 	VALUES 0 2
 END
 
 STRUCT WorldPositionNodeDef_LinkInfo
-	ENUM WorldPositionNodeDef_LinkInfoEnum1
+	ENUM WorldPositionNodeDef_LinkInfo_Enum1
 	FOREIGN_KEY WorldPositionNodeDef
 	UINT32
 	BOOLEAN Teleport

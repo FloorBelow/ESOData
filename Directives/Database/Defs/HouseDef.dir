@@ -1,4 +1,4 @@
-ENUM HouseDefEnum1
+ENUM HouseDef_Enum1
 	VALUES 0 3
 END
 
@@ -8,7 +8,7 @@ STRUCT HouseDef_PlacementLimits
 END
 
 DEF 343 HouseDef VERSION 11
-	ENUM HouseDefEnum1
+	ENUM HouseDef_Enum1
 	UINT32
 	UINT32
 	FOREIGN_KEY ZoneDef Zone

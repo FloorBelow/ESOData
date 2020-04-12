@@ -1,16 +1,16 @@
-ENUM FxBeamDefEnum1
+ENUM FxBeamDef_Enum1
 	VALUES 0 8
 END
 
-ENUM FxBeamDefEnum2
+ENUM FxBeamDef_Enum2
 	VALUES 0 2
 END
 
-ENUM FxBeamDefEnum3
+ENUM FxBeamDef_Enum3
 	VALUES 0 2
 END
 
-ENUM FxBeamDefEnum4
+ENUM FxBeamDef_Enum4
 	VALUES 0 2
 END
 
@@ -51,14 +51,14 @@ DEF 138 FxBeamDef VERSION 22
 	FLOAT
 	FLOAT
 	UINT32
-	ENUM FxBeamDefEnum1
+	ENUM FxBeamDef_Enum1
 	ASSET_REFERENCE
 	FLOAT
 	FLOAT
 	ASSET_REFERENCE
 	FLOAT
 	FLOAT
-	ENUM FxBeamDefEnum2
+	ENUM FxBeamDef_Enum2
 	ENUM FxAttachType
 	ENUM FxAttachType
 	INT32
@@ -75,8 +75,8 @@ DEF 138 FxBeamDef VERSION 22
 	INT32
 	INT32
 	INT32
-	ENUM FxBeamDefEnum3
-	ENUM FxBeamDefEnum4
+	ENUM FxBeamDef_Enum3
+	ENUM FxBeamDef_Enum4
 	STRING
 	ENUM FxAttachType
 	FLOAT

@@ -1,4 +1,4 @@
-ENUM ItemVisualTemplateDef_PartEnum1
+ENUM ItemVisualTemplateDef_Part_Enum1
 	VALUES 0 4
 END
 
@@ -11,7 +11,7 @@ STRUCT ItemVisualTemplateDef_Part
 	ASSET_REFERENCE
 	FOREIGN_KEY ItemPartMaterialDef
 	FOREIGN_KEY ItemPartMaterialDef
-	ENUM ItemVisualTemplateDef_PartEnum1
+	ENUM ItemVisualTemplateDef_Part_Enum1
 	BOOLEAN IsFixture
 	BOOLEAN ShouldRemoveExistingGeometry
 	BOOLEAN ShouldRemoveExistingTexture
@@ -21,15 +21,15 @@ STRUCT ItemVisualTemplateDef_Part
 	UINT32
 END
 
-ENUM ItemVisualTemplateDefEnum1
+ENUM ItemVisualTemplateDef_Enum1
 	VALUES 0 2
 END
 
-ENUM ItemVisualTemplateDefEnum2
+ENUM ItemVisualTemplateDef_Enum2
 	VALUES 0 6
 END
 
-ENUM ItemVisualTemplateDefEnum3
+ENUM ItemVisualTemplateDef_Enum3
 	VALUES 0 4
 END
 
@@ -51,10 +51,10 @@ DEF 88 ItemVisualTemplateDef VERSION 70
 	ARRAY STRUCT ItemVisualTemplateDef_Part PartsArgonian
 	ENUM ItemVisualSlot
 	ENUM WeaponType
-	ENUM ItemVisualTemplateDefEnum1
+	ENUM ItemVisualTemplateDef_Enum1
 	FOREIGN_KEY ItemVisualTintDef
 	ASSET_REFERENCE
-	ENUM ItemVisualTemplateDefEnum2
+	ENUM ItemVisualTemplateDef_Enum2
 	UINT32
 	STRUCT ItemVisualTemplateDef_Transform
 	BOOLEAN ShrinkHead
@@ -95,7 +95,7 @@ DEF 88 ItemVisualTemplateDef VERSION 70
 	BOOLEAN HideDockedShield
 	UINT32
 	UINT32
-	ENUM ItemVisualTemplateDefEnum3
+	ENUM ItemVisualTemplateDef_Enum3
 	ENUM MaterialCategory
 	ENUM MaterialCategory
 	ENUM MaterialCategory

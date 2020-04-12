@@ -1,4 +1,4 @@
-ENUM InteractionCameraDefEnum1
+ENUM InteractionCameraDef_Enum1
 	VALUES 0 2
 END
 
@@ -42,7 +42,7 @@ DEF 155 InteractionCameraDef VERSION 17
 	FLOAT
 	FLOAT
 	FLOAT
-	ENUM InteractionCameraDefEnum1
+	ENUM InteractionCameraDef_Enum1
 	UINT32
 	FLOAT
 	FLOAT

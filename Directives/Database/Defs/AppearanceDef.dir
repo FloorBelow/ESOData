@@ -1,32 +1,32 @@
-ENUM AppearanceDefEnum1
+ENUM AppearanceDef_Enum1
 	VALUES 0 3
 END
 
 STRUCT AppearanceDef_GearBucketSlotInfo
 	ENUM ItemVisualSlot
-	ENUM AppearanceDefEnum1
+	ENUM AppearanceDef_Enum1
 	UINT32
 END
 
-ENUM AppearanceDefEnum2
+ENUM AppearanceDef_Enum2
 	VALUES 0 2
 END
 
-ENUM AppearanceDefEnum3
+ENUM AppearanceDef_Enum3
 	VALUES 0 3
 END
 
-ENUM AppearanceDefEnum4
+ENUM AppearanceDef_Enum4
 	VALUES 0 2
 END
 
 STRUCT AppearanceDef_BucketIndexInfo
-	ENUM AppearanceDefEnum2
+	ENUM AppearanceDef_Enum2
 	ARRAY INT32
 END
 
 STRUCT AppearanceDef_WeaponBucketSlotInfo
-	ENUM AppearanceDefEnum3
+	ENUM AppearanceDef_Enum3
 	UINT32
 END
 
@@ -60,5 +60,5 @@ DEF 136 AppearanceDef VERSION 14
 	ARRAY STRUCT AppearanceDef_BucketIndexInfo EyebrowBucket
 	ARRAY STRUCT AppearanceDef_WeaponBucketSlotInfo WeaponBucket
 	STRING
-	ENUM AppearanceDefEnum4
+	ENUM AppearanceDef_Enum4
 END

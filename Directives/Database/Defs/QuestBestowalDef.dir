@@ -1,8 +1,8 @@
-ENUM QuestBestowalDefEnum1
+ENUM QuestBestowalDef_Enum1
 	VALUES 0 2
 END
 
-ENUM QuestBestowalDefEnum2
+ENUM QuestBestowalDef_Enum2
 	VALUES 0 1
 END
 
@@ -13,7 +13,7 @@ DEF 113 QuestBestowalDef VERSION 15
 	FOREIGN_KEY QuestDef Quest
 	STRUCT CpStr BackgroundJournalTextOverride
 	STRUCT VoCpStr QuestProximityGreeting
-	ENUM QuestBestowalDefEnum1
+	ENUM QuestBestowalDef_Enum1
 	BOOLEAN OverrideQuestRequirements
 	BOOLEAN FirstTimeOnlyBestowal
 	BOOLEAN RepeatOnlyBestowal
@@ -22,7 +22,7 @@ DEF 113 QuestBestowalDef VERSION 15
 	ARRAY UINT32 AntiQuestPrereqs
 	ARRAY UINT32 AntiCurrentQuestPrereqs
 	ARRAY UINT32 AntiEndingPrereqs
-	ENUM QuestBestowalDefEnum2
+	ENUM QuestBestowalDef_Enum2
 	UINT32
 	UINT32
 END

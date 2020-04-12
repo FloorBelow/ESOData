@@ -1,9 +1,9 @@
-ENUM MapLayerTriggerVolumeDataDefDefEnum1
+ENUM MapLayerTriggerVolumeDataDef_Enum1
 	VALUES 0 3
 END
 
 DEF 291 MapLayerTriggerVolumeDataDef VERSION 1
-	ENUM MapLayerTriggerVolumeDataDefDefEnum1
+	ENUM MapLayerTriggerVolumeDataDef_Enum1
 	BOOLEAN IsBossLayer
 	BOOLEAN IsInterior
 	ARRAY FLOAT TriggerVolumePaintColor

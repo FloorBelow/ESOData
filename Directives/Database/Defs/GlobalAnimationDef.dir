@@ -1,14 +1,14 @@
-ENUM GlobalAnimationDefEnum1
+ENUM GlobalAnimationDef_Enum1
 	VALUES 0 2
 END
 
-ENUM GlobalAnimationDefEnum2
+ENUM GlobalAnimationDef_Enum2
 	VALUES 0 1
 END
 
 STRUCT GlobalAnimationDef_WeaponAttachBoneData
 	ENUM WeaponAttachBone
-	ENUM GlobalAnimationDefEnum1
+	ENUM GlobalAnimationDef_Enum1
 	STRING
 END
 
@@ -150,7 +150,7 @@ DEF 130 GlobalAnimationDef VERSION 69
 	BOOLEAN ; 2
 	STRING
 	UINT32
-	ENUM GlobalAnimationDefEnum2
+	ENUM GlobalAnimationDef_Enum2
 	FLOAT
 	STRING
 	STRING

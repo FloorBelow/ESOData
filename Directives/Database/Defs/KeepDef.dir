@@ -6,35 +6,35 @@ STRUCT KeepDef_PieceEntry
 	ARRAY UINT32 FixtureGroup
 END
 
-ENUM KeepDef_HookpointEntryEnum1
+ENUM KeepDef_HookpointEntry_Enum1
 	VALUES 0 3
 END
 
 STRUCT KeepDef_HookpointEntry
 	UINT32
 	UINT32
-	ENUM KeepDef_HookpointEntryEnum1
+	ENUM KeepDef_HookpointEntry_Enum1
 	ARRAY UINT32 HookpointStoreIndex
 END
 
-ENUM KeepDef_CaravanEntryEnum1
+ENUM KeepDef_CaravanEntry_Enum1
 	VALUES 0 1
 END
 
 STRUCT KeepDef_CaravanEntry
-	ENUM KeepDef_CaravanEntryEnum1
+	ENUM KeepDef_CaravanEntry_Enum1
 	UINT32
 END
 
-ENUM KeepDefEnum1
+ENUM KeepDef_Enum1
 	VALUES 0 9
 END
 
-ENUM KeepDefEnum2
+ENUM KeepDef_Enum2
 	VALUES 0 2
 END
 
-ENUM KeepDefEnum3
+ENUM KeepDef_Enum3
 	VALUES 0 2
 END
 
@@ -51,8 +51,8 @@ DEF 90 KeepDef VERSION 42
 	UINT32
 	ARRAY STRUCT KeepDef_HookpointEntry Hookpoints
 	ARRAY STRUCT KeepDef_CaravanEntry Caravans
-	ENUM KeepDefEnum1
-	ENUM KeepDefEnum2
+	ENUM KeepDef_Enum1
+	ENUM KeepDef_Enum2
 	UINT32
 	ARRAY INT32 UpkeepPerMinuteAtLevel
 	ARRAY UINT32 Upgrades
@@ -62,7 +62,7 @@ DEF 90 KeepDef VERSION 42
 	UINT32
 	UINT32
 	UINT32
-	ENUM KeepDefEnum3
+	ENUM KeepDef_Enum3
 	UINT8
 	UINT8
 	UINT32	

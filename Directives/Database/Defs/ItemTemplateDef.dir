@@ -1,8 +1,8 @@
-ENUM ItemTemplateDefEnum1
+ENUM ItemTemplateDef_Enum1
 	VALUES 0 3
 END
 
-ENUM ItemTemplateDefEnum2
+ENUM ItemTemplateDef_Enum2
 	VALUES 0 3
 END
 
@@ -12,7 +12,7 @@ DEF 202 ItemTemplateDef VERSION 24
 	ENUM SpecializedItemType
 	ENUM ItemStyleChapter
 	ENUM WeaponType
-	ENUM ItemTemplateDefEnum1
+	ENUM ItemTemplateDef_Enum1
 	ARRAY FOREIGN_KEY ItemDef DroppableEnchantments
 	ENUM ItemUISoundCategory
 	ARRAY FOREIGN_KEY ItemVisualStyleDef VisualStylePerLevel
@@ -21,7 +21,7 @@ DEF 202 ItemTemplateDef VERSION 24
 	ARRAY FOREIGN_KEY ItemMaterialDef MaterialTypePerChampionRank
 	UINT32
 	UINT32
-	ENUM ItemTemplateDefEnum2
+	ENUM ItemTemplateDef_Enum2
 	BOOLEAN IsRefinable
 	BOOLEAN CanBeVirtual
 	BOOLEAN ShowItemTypeInTooltip

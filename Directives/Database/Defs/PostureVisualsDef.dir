@@ -3,20 +3,20 @@ STRUCT PostureVisualsDef_CustomAnim
 	UINT32
 END
 
-ENUM PostureVisualsDef_FidgetAnimEnum1
+ENUM PostureVisualsDef_FidgetAnim_Enum1
 	VALUES 0 3
 END
 
-ENUM PostureVisualsDef_FidgetAnimEnum2
+ENUM PostureVisualsDef_FidgetAnim_Enum2
 	VALUES 0 8
 END
 
-ENUM PostureVisualsDef_FidgetAnimEnum3
+ENUM PostureVisualsDef_FidgetAnim_Enum3
 	VALUES 0 6
 END
 
 STRUCT PostureVisualsDef_FidgetAnim
-	ENUM PostureVisualsDef_FidgetAnimEnum1
+	ENUM PostureVisualsDef_FidgetAnim_Enum1
 	UINT32
 	STRING
 	FLOAT
@@ -34,21 +34,21 @@ STRUCT PostureVisualsDef_FidgetAnim
 	FLOAT
 	FLOAT
 	ENUM MixerChannel
-	ENUM PostureVisualsDef_FidgetAnimEnum2
+	ENUM PostureVisualsDef_FidgetAnim_Enum2
 	UINT32
 	UINT32
-	ENUM PostureVisualsDef_FidgetAnimEnum3	
+	ENUM PostureVisualsDef_FidgetAnim_Enum3	
 END
 
-ENUM PostureVisualsDefEnum1
+ENUM PostureVisualsDef_Enum1
 	VALUES 0 2
 END
 
-ENUM PostureVisualsDefEnum2
+ENUM PostureVisualsDef_Enum2
 	VALUES 0 2
 END
 
-ENUM PostureVisualsDefEnum3
+ENUM PostureVisualsDef_Enum3
 	VALUES 0 2
 END
 
@@ -77,10 +77,10 @@ DEF 99 PostureVisualsDef VERSION 56
 	FLOAT
 	FLOAT
 	FLOAT
-	ENUM PostureVisualsDefEnum1
-	ENUM PostureVisualsDefEnum2
+	ENUM PostureVisualsDef_Enum1
+	ENUM PostureVisualsDef_Enum2
 	STRING
-	ENUM PostureVisualsDefEnum3
+	ENUM PostureVisualsDef_Enum3
 	ARRAY STRUCT PostureVisualsDef_FidgetAnim Fidgets
 	ARRAY STRUCT PostureVisualsDef_CustomAnim Deaths
 	STRING

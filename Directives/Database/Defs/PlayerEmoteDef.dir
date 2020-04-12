@@ -3,7 +3,7 @@ STRUCT PlayerEmoteDef_FidgetAnim
 	FLOAT
 END
 
-ENUM PlayerEmoteDefEnum1
+ENUM PlayerEmoteDef_Enum1
 	VALUES 0 2
 END
 
@@ -27,7 +27,7 @@ DEF 189 PlayerEmoteDef VERSION 21
 	ARRAY STRUCT ItemVisualData RightHandPropItemVisualData
 	UINT32
 	UINT32
-	ENUM PlayerEmoteDefEnum1
+	ENUM PlayerEmoteDef_Enum1
 	STRING
 	FLOAT
 	FLOAT	

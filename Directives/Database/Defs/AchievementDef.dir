@@ -6,15 +6,15 @@ STRUCT AchievementDef_Component
 	BOOLEAN SendConsoleEventOnUpdate
 END
 
-ENUM AchievementDefEnum1
+ENUM AchievementDef_Enum1
 	VALUES 0 7
 END
 
-ENUM AchievementDefEnum2
+ENUM AchievementDef_Enum2
 	VALUES 0 2
 END
 
-ENUM AchievementDefEnum3
+ENUM AchievementDef_Enum3
 	VALUE 0
 	VALUE 5
 	VALUE 10
@@ -27,18 +27,18 @@ DEF 125 AchievementDef VERSION 38
 	UINT32
 	UINT32
 	UINT32
-	ENUM AchievementDefEnum1
+	ENUM AchievementDef_Enum1
 	UINT32
-	ENUM AchievementDefEnum2
-	UINT32
-	UINT32
+	ENUM AchievementDef_Enum2
 	UINT32
 	UINT32
 	UINT32
-	UINT8
+	UINT32
 	UINT32
 	UINT8
-	ENUM AchievementDefEnum3
+	UINT32
+	UINT8
+	ENUM AchievementDef_Enum3
 	UINT32
 	UINT8
 	UINT32

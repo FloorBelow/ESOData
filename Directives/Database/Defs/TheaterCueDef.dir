@@ -1,4 +1,4 @@
-ENUM TheaterCueDefEnum1
+ENUM TheaterCueDef_Enum1
 	VALUES 0 2
 END
 
@@ -9,7 +9,7 @@ DEF 337 TheaterCueDef VERSION 3
 	UINT32
 	UINT32
 	UINT32
-	ENUM TheaterCueDefEnum1
+	ENUM TheaterCueDef_Enum1
 	UINT32
 	UINT32
 	BOOLEAN OrComparePrereqs

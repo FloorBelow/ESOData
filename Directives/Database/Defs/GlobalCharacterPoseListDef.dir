@@ -1,45 +1,45 @@
-ENUM GlobalCharacterPoseListDefEnum1
+ENUM GlobalCharacterPoseListDef_Enum1
 	VALUES 0 1
 END
 
-ENUM GlobalCharacterPoseListDefEnum2
+ENUM GlobalCharacterPoseListDef_Enum2
 	VALUES 0 2
 END
 
-ENUM GlobalCharacterPoseListDefEnum3
+ENUM GlobalCharacterPoseListDef_Enum3
 	VALUES 0 5
 END
 
 STRUCT GlobalCharacterPoseListDef_PhysiquePoseInfo
-	ENUM GlobalCharacterPoseListDefEnum1
-	ENUM GlobalCharacterPoseListDefEnum1
-	ENUM GlobalCharacterPoseListDefEnum2
+	ENUM GlobalCharacterPoseListDef_Enum1
+	ENUM GlobalCharacterPoseListDef_Enum1
+	ENUM GlobalCharacterPoseListDef_Enum2
 	ENUM DeformationCharacter
-	ENUM GlobalCharacterPoseListDefEnum3
+	ENUM GlobalCharacterPoseListDef_Enum3
 	FOREIGN_KEY PoseDef
 END
  
 STRUCT GlobalCharacterPoseListDef_FacePoseInfo
-	ENUM GlobalCharacterPoseListDefEnum1
-	ENUM GlobalCharacterPoseListDefEnum1
-	ENUM GlobalCharacterPoseListDefEnum2
+	ENUM GlobalCharacterPoseListDef_Enum1
+	ENUM GlobalCharacterPoseListDef_Enum1
+	ENUM GlobalCharacterPoseListDef_Enum2
 	ENUM DeformationCharacter
-	ENUM GlobalCharacterPoseListDefEnum3
+	ENUM GlobalCharacterPoseListDef_Enum3
 	FOREIGN_KEY PoseDef
 END
 
 STRUCT GlobalCharacterPoseListDef_UniversalPoseInfo
-	ENUM GlobalCharacterPoseListDefEnum1
-	ENUM GlobalCharacterPoseListDefEnum1
-	ENUM GlobalCharacterPoseListDefEnum2
+	ENUM GlobalCharacterPoseListDef_Enum1
+	ENUM GlobalCharacterPoseListDef_Enum1
+	ENUM GlobalCharacterPoseListDef_Enum2
 	ENUM UniversalPoseType
 	FOREIGN_KEY PoseDef
 END
 
 STRUCT GlobalCharacterPoseListDef_RestPoseInfo
-	ENUM GlobalCharacterPoseListDefEnum1
-	ENUM GlobalCharacterPoseListDefEnum1
-	ENUM GlobalCharacterPoseListDefEnum2
+	ENUM GlobalCharacterPoseListDef_Enum1
+	ENUM GlobalCharacterPoseListDef_Enum1
+	ENUM GlobalCharacterPoseListDef_Enum2
 	FOREIGN_KEY PoseDef	
 END
 

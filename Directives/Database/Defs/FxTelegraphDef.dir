@@ -1,4 +1,4 @@
-ENUM FxTelegraphDefEnum1
+ENUM FxTelegraphDef_Enum1
 	VALUES 0 5
 END
 
@@ -11,7 +11,7 @@ DEF 186 FxTelegraphDef VERSION 23
 	BOOLEAN ; 1
 	BOOLEAN ; 2
 	BOOLEAN ; 3
-	ENUM FxTelegraphDefEnum1
+	ENUM FxTelegraphDef_Enum1
 	FLOAT
 	ARRAY FLOAT TintColor
 	FLOAT

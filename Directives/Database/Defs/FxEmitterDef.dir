@@ -6,7 +6,7 @@ ENUM FxEmitterDef_Enum2
 	VALUES 0 7
 END
 
-STRUCT FxEmtterDef_ClipEmitter
+STRUCT FxEmitterDef_ClipEmitter
 	STRING
 	FLOAT
 END
@@ -111,5 +111,5 @@ DEF 29 FxEmitterDef VERSION 77
 	FLOAT
 	FLOAT
 	FLOAT
-	ARRAY STRUCT FxEmtterDef_ClipEmitter ClipEmitters
+	ARRAY STRUCT FxEmitterDef_ClipEmitter ClipEmitters
 END

@@ -1,4 +1,4 @@
-ENUM PSBToAudioMappingDefEnum1
+ENUM PSBToAudioMappingDef_Enum1
 	VALUES 0 3
 END
 
@@ -12,5 +12,5 @@ DEF 85 PSBToAudioMappingDef VERSION 12
 	UINT32
 	FLOAT
 	BOOLEAN PlayRegularImpact
-	ENUM PSBToAudioMappingDefEnum1
+	ENUM PSBToAudioMappingDef_Enum1
 END

@@ -1,19 +1,19 @@
-ENUM RaceDefEnum1
+ENUM RaceDef_Enum1
     VALUES 0 3
 END
 
-ENUM RaceDef_RaceGiftEnum1
+ENUM RaceDef_RaceGift_Enum1
     VALUES 0 4
 END
 
 STRUCT RaceDef_RaceGift
-    ENUM RaceDef_RaceGiftEnum1
+    ENUM RaceDef_RaceGift_Enum1
     UINT32
     FOREIGN_KEY SkillLineDef
 END
 
 DEF 78 RaceDef VERSION 38
-    ENUM RaceDefEnum1
+    ENUM RaceDef_Enum1
     FOREIGN_KEY ModelDef MaleModel
     FOREIGN_KEY ModelDef FemaleModel
     ARRAY STRUCT RaceDef_RaceGift Gifts

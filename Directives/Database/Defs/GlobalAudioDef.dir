@@ -10,14 +10,14 @@ STRUCT GlobalAudioDef_OneshotDistanceSettings
 	FLOAT
 END
 
-ENUM GlobalAudioDefEnum1
+ENUM GlobalAudioDef_Enum1
 	VALUES 0 1
 END
 
 
 STRUCT GlobalAudioDef_PolyphonyEventSettings
 	UINT32
-	ENUM GlobalAudioDefEnum1
+	ENUM GlobalAudioDef_Enum1
 END
 
 STRUCT GlobalAudioDef_LipSyncSettings
@@ -47,25 +47,25 @@ STRUCT GlobalAudioDef_AnimTagGovernorSettings
 	UINT32
 END
  
-ENUM GlobalAudioDefEnum2
+ENUM GlobalAudioDef_Enum2
 	VALUES 0 1
 END
 
-ENUM GlobalAudioDefEnum3
+ENUM GlobalAudioDef_Enum3
 	VALUES 0 2
 END
 
 STRUCT GlobalAudioDef_PFXEffectLimitSettings
 	UINT32
 	UINT32
-	ENUM GlobalAudioDefEnum2
-	ENUM GlobalAudioDefEnum3
+	ENUM GlobalAudioDef_Enum2
+	ENUM GlobalAudioDef_Enum3
 END
 
 STRUCT GlobalAudioDef_FixtureLimitSettings
 	UINT32
 	UINT32
-	ENUM GlobalAudioDefEnum2
+	ENUM GlobalAudioDef_Enum2
 END
 
 STRUCT GlobalAudioDef_SoundsetDeriviativeMapping

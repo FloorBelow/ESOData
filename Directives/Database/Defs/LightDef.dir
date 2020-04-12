@@ -1,12 +1,12 @@
-ENUM LightDefEnum1
+ENUM LightDef_Enum1
 	VALUES 0 2
 END
 
-ENUM LightDefEnum2
+ENUM LightDef_Enum2
 	VALUES 0 2
 END
 
-ENUM LightDefEnum3
+ENUM LightDef_Enum3
 	VALUES 0 2
 END
 
@@ -24,12 +24,12 @@ DEF 103 LightDef VERSION 15
 	FLOAT
 	FLOAT
 	UINT32
-	ENUM LightDefEnum1
+	ENUM LightDef_Enum1
 	UINT32
 	FLOAT
 	FLOAT
 	UINT32
-	ENUM LightDefEnum2	
+	ENUM LightDef_Enum2	
 	ARRAY FLOAT SunProjectionOffsetVector
 	ARRAY FLOAT TriMidColor
 	ARRAY FLOAT TriBackColor
@@ -38,5 +38,5 @@ DEF 103 LightDef VERSION 15
 	ARRAY FLOAT TimeOfDayLightDayColor
 	ARRAY FLOAT TimeOfDayLightDuskColor
 	ARRAY FLOAT TimeOfDayLightNightColor
-	ENUM LightDefEnum3
+	ENUM LightDef_Enum3
 END

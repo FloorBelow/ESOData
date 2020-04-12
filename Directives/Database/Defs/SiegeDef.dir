@@ -1,4 +1,4 @@
-ENUM SiegeDefEnum1
+ENUM SiegeDef_Enum1
 	VALUES 0 3
 END
 
@@ -10,7 +10,7 @@ END
 DEF 93 SiegeDef VERSION 29
 	FOREIGN_KEY InteractableModelDef
 	UINT32
-	ENUM SiegeDefEnum1
+	ENUM SiegeDef_Enum1
 	ENUM SiegeType
 	FOREIGN_KEY AbilityDef
 	FLOAT

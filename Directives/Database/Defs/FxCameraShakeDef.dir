@@ -13,7 +13,7 @@ STRUCT FxCameraShakeDef_DistanceFalloffCurveData
 	FLOAT
 END
 
-ENUM FxCameraShakeDefEnum1
+ENUM FxCameraShakeDef_Enum1
 	VALUES 0 8
 END
 
@@ -34,7 +34,7 @@ DEF 129 FxCameraShakeDef VERSION 15
 	ARRAY STRUCT FxCameraShakeDef_DistanceFalloffCurveData DistanceFalloffCurveData
 	UINT32
 	UINT32
-	ENUM FxCameraShakeDefEnum1
+	ENUM FxCameraShakeDef_Enum1
 	FLOAT
 	UINT32
 	ARRAY STRUCT FxStopInfo StopInf

@@ -1,8 +1,8 @@
-ENUM FurnitureDataDefEnum1
+ENUM FurnitureDataDef_Enum1
 	VALUES 0 3
 END
 
-ENUM FurnitureDataDefEnum2
+ENUM FurnitureDataDef_Enum2
 	VALUES 0 2
 END
 
@@ -10,8 +10,8 @@ DEF 352 FurnitureDataDef VERSION 9
 	FOREIGN_KEY FurnitureCategoryDef Category
 	ENUM FurnitureThemeType Theme
 	FLOAT
-	ENUM FurnitureDataDefEnum1
-	ENUM FurnitureDataDefEnum2
+	ENUM FurnitureDataDef_Enum1
+	ENUM FurnitureDataDef_Enum2
 	FOREIGN_KEY ItemDef
 	FLOAT
 	FLOAT

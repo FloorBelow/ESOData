@@ -1,4 +1,4 @@
-ENUM BaseDefEnum
+ENUM BaseDef_Enum
     VALUES 0 2
 END
 
@@ -6,7 +6,7 @@ STRUCT BaseDef
     UINT32 id
     STRING name
     UINT32
-    ENUM BaseDefEnum
+    ENUM BaseDef_Enum
     UINT16 addedInPatch
     UINT64 lastModified
 END

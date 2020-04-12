@@ -1,9 +1,9 @@
-ENUM QuestAssistEnum1
+ENUM QuestAssist_Enum1
 	VALUES 0 4
 END
 
 STRUCT QuestAssist
-	ENUM QuestAssistEnum1
+	ENUM QuestAssist_Enum1
 	UINT32
 	UINT32
 	INT32 PositionX

@@ -1,4 +1,4 @@
-ENUM FxProjectiveDef_Enum1
+ENUM FxProjectileDef_Enum1
 	VALUES 0 2
 END
 
@@ -43,7 +43,7 @@ DEF 33 FxProjectileDef VERSION 47
 	STRING
 	STRING
 	FLOAT
-	ENUM FxProjectiveDef_Enum1
+	ENUM FxProjectileDef_Enum1
 	FLOAT
 	FLOAT
 	FLOAT

@@ -1,9 +1,9 @@
-ENUM FxWeatherDefEnum1
+ENUM FxWeatherDef_Enum1
 	VALUES 0 4
 END
 
 DEF 147 FxWeatherDef VERSION 11
-	ENUM FxWeatherDefEnum1
+	ENUM FxWeatherDef_Enum1
 	UINT32
 	ASSET_REFERENCE
 	FLOAT

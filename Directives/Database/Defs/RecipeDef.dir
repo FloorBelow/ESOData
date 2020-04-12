@@ -3,7 +3,7 @@ STRUCT RecipeDef_Ingredient
 	UINT32 Count
 END
 
-ENUM RecipeDefEnum1
+ENUM RecipeDef_Enum1
 	VALUES 0 7
 END
 
@@ -16,5 +16,5 @@ DEF 225 RecipeDef VERSION 6
 	ARRAY STRUCT RecipeDef_Ingredient Ingredients
 	BOOLEAN IsAlreadyKnown
 	BOOLEAN IsFurniture
-	ENUM RecipeDefEnum1
+	ENUM RecipeDef_Enum1
 END

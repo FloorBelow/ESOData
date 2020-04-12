@@ -1,12 +1,12 @@
-ENUM QuestDefEnum1
+ENUM QuestDef_Enum1
 	VALUES 0 5
 END
 
-ENUM QuestDefEnum2
+ENUM QuestDef_Enum2
 	VALUES 0 3
 END
 
-ENUM QuestDefEnum3
+ENUM QuestDef_Enum3
 	VALUES 0 1
 END
 
@@ -20,15 +20,15 @@ DEF 10 QuestDef VERSION 70
 	ENUM QuestType
 	UINT32 MinimumLevel
 	FOREIGN_KEY QuestRewardDef Reward
-	ENUM QuestDefEnum1
+	ENUM QuestDef_Enum1
 	ARRAY FOREIGN_KEY QuestDef AntiQuestPrereqs
 	ARRAY FOREIGN_KEY QuestDef AntiCurrentQuestPrereqs
 	ARRAY FOREIGN_KEY QuestEndingDef AntiEndingPrereqs
-	ENUM QuestDefEnum3
+	ENUM QuestDef_Enum3
 	FOREIGN_KEY PointOfInterestDef
 	FOREIGN_KEY ZoneDef Zone
 	UINT32
-	ENUM QuestDefEnum2
+	ENUM QuestDef_Enum2
 	ARRAY FOREIGN_KEY QuestBestowalDef Bestowals
 	UINT32
 	UINT32

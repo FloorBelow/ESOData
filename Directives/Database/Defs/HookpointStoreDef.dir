@@ -1,4 +1,4 @@
-ENUM HookpointStoreDefEnum1
+ENUM HookpointStoreDef_Enum1
 	VALUES 0 1
 END
 
@@ -9,6 +9,6 @@ STRUCT HookpointStoreDef_Item
 END
 
 DEF 182 HookpointStoreDef VERSION 2
-	ENUM HookpointStoreDefEnum1
+	ENUM HookpointStoreDef_Enum1
 	ARRAY STRUCT HookpointStoreDef_Item Items
 END

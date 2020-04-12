@@ -1,15 +1,15 @@
-ENUM CharacterSliderDefEnum1
+ENUM CharacterSliderDef_Enum1
 	VALUES 0 2
 END
 
-ENUM CharacterSliderDefEnum2
+ENUM CharacterSliderDef_Enum2
 	VALUES 0 2
 END
 
 
 DEF 175 CharacterSliderDef VERSION 5
-	ENUM CharacterSliderDefEnum1
-	ENUM CharacterSliderDefEnum2
+	ENUM CharacterSliderDef_Enum1
+	ENUM CharacterSliderDef_Enum2
 	ENUM DeformationCharacter
 	ENUM CharacterSliderName
 	STRING

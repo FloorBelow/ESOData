@@ -1,8 +1,8 @@
-ENUM BiomeDefEnum1
+ENUM BiomeDef_Enum1
 	VALUES 0 2
 END
 
-ENUM BiomeDefEnum2
+ENUM BiomeDef_Enum2
 	VALUES 0 2
 END
 
@@ -10,7 +10,7 @@ DEF 333 BiomeDef VERSION 5
 	ASSET_REFERENCE
 	ASSET_REFERENCE
 	FLOAT
-	ENUM BiomeDefEnum1
+	ENUM BiomeDef_Enum1
 	FLOAT
 	FLOAT
 	FLOAT
@@ -40,7 +40,7 @@ DEF 333 BiomeDef VERSION 5
 	FLOAT
 	
 	; Since version 4
-	ENUM BiomeDefEnum2
+	ENUM BiomeDef_Enum2
 	UINT32
 	ASSET_REFERENCE
 	ASSET_REFERENCE

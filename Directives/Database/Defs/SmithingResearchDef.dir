@@ -1,8 +1,8 @@
-ENUM SmithingResearchDefEnum1
+ENUM SmithingResearchDef_Enum1
 	VALUES 0 2
 END
 
 DEF 235 SmithingResearchDef VERSION 2
-	ENUM SmithingResearchDefEnum1
+	ENUM SmithingResearchDef_Enum1
 	ASSET_REFERENCE
 END

@@ -1,4 +1,4 @@
-ENUM CollectibleDefEnum1
+ENUM CollectibleDef_Enum1
 	VALUES 0 1
 END
 
@@ -7,19 +7,19 @@ STRUCT CollectibleDef_PrioritizedReferenceDataEntry
 	FOREIGN_KEY RequirementListDef Requirements
 END
 
-ENUM CollectibleDefEnum2
+ENUM CollectibleDef_Enum2
 	VALUES 0 3
 END
 
-ENUM CollectibleDefEnum3
+ENUM CollectibleDef_Enum3
 	VALUES 0 2
 END
 
-ENUM CollectibleDefEnum4
+ENUM CollectibleDef_Enum4
 	VALUES 0 3
 END
 
-ENUM CollectibleDefEnum5
+ENUM CollectibleDef_Enum5
 	VALUES 0 3
 END
 
@@ -30,7 +30,7 @@ DEF 278 CollectibleDef VERSION 45
 	FOREIGN_KEY CollectibleCategoryDef
 	UINT8
 	POLYMORPHIC_REFERENCE CollectibleCategoryType ReferenceData
-	ENUM CollectibleDefEnum1
+	ENUM CollectibleDef_Enum1
 	BOOLEAN	AvailableInCrownStore
 	BOOLEAN UnlockedViaSubscription
 	BOOLEAN AddedToGlobalCollectionDef
@@ -55,9 +55,9 @@ DEF 278 CollectibleDef VERSION 45
 	BOOLEAN HasRaceRestrictions
 	BOOLEAN HasClassRestrictions
 	ARRAY UINT32 AllowedRaces
-	ENUM CollectibleDefEnum2
-	ENUM CollectibleDefEnum3
-	ENUM CollectibleDefEnum4
+	ENUM CollectibleDef_Enum2
+	ENUM CollectibleDef_Enum3
+	ENUM CollectibleDef_Enum4
 	ARRAY UINT32 AllowedClasses
 	FOREIGN_KEY FurnitureDataDef
 	FLOAT
@@ -73,6 +73,6 @@ DEF 278 CollectibleDef VERSION 45
 	FLOAT
 	BOOLEAN IgnoreHidePolymorphHelmOption
 	BOOLEAN CanRotateDuringPreview
-	ENUM CollectibleDefEnum5
+	ENUM CollectibleDef_Enum5
 	UINT32
 END

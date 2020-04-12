@@ -1,14 +1,14 @@
-ENUM QuestStepDefEnum1
+ENUM QuestStepDef_Enum1
 	VALUES 1 4
 END
 
-ENUM QuestStepDefEnum2
+ENUM QuestStepDef_Enum2
 	VALUES 0 1
 END
 
 DEF 12 QuestStepDef VERSION 24
-	ENUM QuestStepDefEnum1
-	ENUM QuestStepDefEnum2
+	ENUM QuestStepDef_Enum1
+	ENUM QuestStepDef_Enum2
 	ARRAY FOREIGN_KEY QuestConditionDef QuestConditions
 	FOREIGN_KEY QuestEndingDef
 	ARRAY FOREIGN_KEY QuestConditionDef FailConditions

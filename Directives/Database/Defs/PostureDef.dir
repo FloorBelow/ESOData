@@ -4,15 +4,15 @@ STRUCT PostureDef_AudioFidgetSetting
 	BOOLEAN AnimTagVOAllowed
 END
 
-ENUM PostureDefEnum1
+ENUM PostureDef_Enum1
 	VALUES 0 1
 END
 
-ENUM PostureDefEnum2
+ENUM PostureDef_Enum2
 	VALUES 0 2
 END
 
-ENUM PostureDefEnum3
+ENUM PostureDef_Enum3
 	VALUES 0 6
 END
 
@@ -47,11 +47,11 @@ DEF 97 PostureDef VERSION 34
 	ARRAY FOREIGN_KEY GenericVOTableDef RegreetingLongVOTableId
 	ARRAY FOREIGN_KEY GenericVOTableDef AmbienceVOTableId
 	FLOAT
-	ENUM PostureDefEnum1
-	ENUM PostureDefEnum2
+	ENUM PostureDef_Enum1
+	ENUM PostureDef_Enum2
 	INT32
 	INT32
-	ENUM PostureDefEnum3
+	ENUM PostureDef_Enum3
 	UINT32
 	UINT32
 	FLOAT

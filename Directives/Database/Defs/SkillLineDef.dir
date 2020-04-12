@@ -12,15 +12,15 @@ STRUCT SkillLineDef_AbilityEntry
 	BOOLEAN ; 1
 END
 
-ENUM SkillLineDefEnum1
+ENUM SkillLineDef_Enum1
 	VALUES 0 7
 END
 
-ENUM SkillLineDefEnum2
+ENUM SkillLineDef_Enum2
 	VALUES 0 5
 END
 
-ENUM SkillLineDefEnum3
+ENUM SkillLineDef_Enum3
 	VALUES 0 3
 END
 
@@ -33,12 +33,12 @@ DEF 98 SkillLineDef VERSION 34
 	STRUCT CpStr TooltipText
 	ARRAY UINT32 RankUpExp
 	FOREIGN_KEY GuildReputationDef
-	ENUM SkillLineDefEnum1
+	ENUM SkillLineDef_Enum1
 	ENUM SkillType
-	ENUM SkillLineDefEnum2
+	ENUM SkillLineDef_Enum2
 	ARRAY UINT32 SkillPassives
 	FLOAT
-	ENUM SkillLineDefEnum3
+	ENUM SkillLineDef_Enum3
 	UINT32
 	ASSET_REFERENCE
 END

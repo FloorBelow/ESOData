@@ -1,18 +1,18 @@
-ENUM VOLineDefEnum1
+ENUM VOLineDef_Enum1
 	VALUES 0 3
 END
 
-ENUM VOLineDefEnum2
+ENUM VOLineDef_Enum2
 	VALUES 0 2
 END
 
-ENUM VOLineDefEnum3
+ENUM VOLineDef_Enum3
 	VALUES 0 2
 END
 
 DEF 161 VOLineDef VERSION 13
 	ENUM VODeliveryDirection
-	ENUM VOLineDefEnum1
+	ENUM VOLineDef_Enum1
 	BOOLEAN OverridePositioning
 	BOOLEAN FakeBarkTable
 	BOOLEAN NeedsMultipleReadings
@@ -21,6 +21,6 @@ DEF 161 VOLineDef VERSION 13
 	BOOLEAN IsDistant
 	UINT32
 	UINT32
-	ENUM VOLineDefEnum2
-	ENUM VOLineDefEnum3
+	ENUM VOLineDef_Enum2
+	ENUM VOLineDef_Enum3
 END

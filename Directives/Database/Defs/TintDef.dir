@@ -1,8 +1,8 @@
-ENUM TintDefEnum1
+ENUM TintDef_Enum1
     VALUES 0 2
 END
 
-ENUM TintDefEnum2
+ENUM TintDef_Enum2
     VALUES 0 3
 END
 
@@ -13,7 +13,7 @@ DEF 81 TintDef VERSION 6
     FLOAT
     FLOAT
     ENUM TintMaterial
-    ENUM TintDefEnum1
+    ENUM TintDef_Enum1
     STRING
-    ENUM TintDefEnum2
+    ENUM TintDef_Enum2
 END

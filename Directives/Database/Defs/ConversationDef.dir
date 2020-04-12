@@ -6,7 +6,7 @@ ENUM ConversationDef_Enum2
 	VALUES 0 3
 END
 
-ENUM ConvesationDef_Enum3
+ENUM ConversationDef_Enum3
 	VALUES 0 3
 END
 
@@ -29,6 +29,6 @@ DEF 44 ConversationDef VERSION 23
 	ARRAY ENUM ConversationDef_Enum2 Bribe
 	UINT32
 	UINT32
-	ENUM ConvesationDef_Enum3
+	ENUM ConversationDef_Enum3
 	
 END

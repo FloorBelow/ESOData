@@ -1,4 +1,4 @@
-ENUM RandomStringTableDefEnum1
+ENUM RandomStringTableDef_Enum1
 	VALUES 0 2
 END
 
@@ -6,7 +6,7 @@ DEF 94 RandomStringTableDef VERSION 4
 	ARRAY STRUCT VoCpStr Text
 	ARRAY UINT32 Chance
 	ARRAY UINT32 ShowLinInChat
-	ENUM RandomStringTableDefEnum1
+	ENUM RandomStringTableDef_Enum1
 	UINT32
 	UINT32
 	UINT32

@@ -1,4 +1,4 @@
-ENUM InteractableModelDefEnum1
+ENUM InteractableModelDef_Enum1
 	VALUES 0 2
 END
 
@@ -10,5 +10,5 @@ DEF 84 InteractableModelDef VERSION 10
 	BOOLEAN OverrideLocalSpaceBounds
 	ARRAY FLOAT OverrideLocalSpaceBoundsMin
 	ARRAY FLOAT OverrideLocalSpaceBoundsMax
-	ENUM InteractableModelDefEnum1
+	ENUM InteractableModelDef_Enum1
 END

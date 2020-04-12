@@ -1,4 +1,4 @@
-ENUM LootCrateParticleInfoEnum1
+ENUM LootCrateParticleInfo_Enum1
 	VALUES 0 1
 END
 
@@ -8,5 +8,5 @@ STRUCT LootCrateParticleInfo
 	UINT32
 	UINT32
 	UINT32
-	ENUM LootCrateParticleInfoEnum1
+	ENUM LootCrateParticleInfo_Enum1
 END

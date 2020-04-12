@@ -1,8 +1,8 @@
-ENUM CampaignRulesetDefEnum1
+ENUM CampaignRulesetDef_Enum1
 	VALUES 0 2
 END
 
-ENUM CampaignRulesetDefEnum2
+ENUM CampaignRulesetDef_Enum2
 	VALUES 0 4
 END
 
@@ -18,11 +18,11 @@ DEF 195 CampaignRulesetDef VERSION 34
 	FLOAT
 	FLOAT
 	FOREIGN_KEY RequirementListDef
-	ENUM CampaignRulesetDefEnum1
+	ENUM CampaignRulesetDef_Enum1
 	UINT32
 	UINT32
 	UINT32
-	ENUM CampaignRulesetDefEnum2
+	ENUM CampaignRulesetDef_Enum2
 	BOOLEAN AllowCrossAllianceChat
 	ARRAY FOREIGN_KEY RequirementListDef CoronateEmperorRequirements
 	ARRAY FOREIGN_KEY AbilityDef EmperorAllianceWideBuff
