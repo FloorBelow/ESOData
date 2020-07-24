@@ -1,0 +1,5 @@
+Note that a copy of RAD Game Tools Granny 3D library is not provided in this
+repository. A copy of ESO-compatible granny2_x64.dll should be procured and
+placed into this directory, and a copy of granny.h from the Granny SDK of
+matching version should be put into "include" subdirectory of this directory.
+No other files are required.
