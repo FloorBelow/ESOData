@@ -1,6 +1,6 @@
 [submodule "archiveparse"]
 	path = archiveparse
-	url = https://unwind-project.org/ope/archiveparse.git
+	url = https://github.com/moon-touched/archiveparse.git
 [submodule "3rdparty/DirectXTex/DirectXTex"]
 	path = 3rdparty/DirectXTex/DirectXTex
 	url = https://github.com/microsoft/DirectXTex.git
