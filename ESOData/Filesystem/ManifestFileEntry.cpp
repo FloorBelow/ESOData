@@ -16,13 +16,14 @@ namespace esodata {
 		return stream;
 	}
 
+	//TODO FIX ORDER BASED ON VERSION?
 	SerializationStream &operator >>(SerializationStream &stream, ManifestFileEntry &entry) {
 		stream >> entry.uncompressedSize
 			>> entry.compressedSize
 			>> entry.fileCRC32
 			>> entry.fileOffset
-			>> entry.compressionType
 			>> entry.archiveIndex
+			>> entry.compressionType
 			>> entry.unknown;
 
 		return stream;

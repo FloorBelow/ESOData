@@ -20,6 +20,7 @@
 #include <zlib.h>
 
 #include <snappy.h>
+#include "../Oodle/oodle.h"
 
 namespace esodata {
 	Archive::Archive(const std::filesystem::path &manifestFilename, bool needPreciseSizes) {
@@ -106,9 +107,22 @@ namespace esodata {
 		if (bytesRead != data.size())
 			throw std::runtime_error("short read");
 
+		bool oodle = false;
+		if ((data[0] == 0x8c || data[0] == 0xcc) && (data[1] == 0x06 || data[1] == 0x0a)) {
+			oodle = true;
+			//printf("OODLE %u\n", entry.compressionType);
+			std::vector<unsigned char> oodleOut(entry.uncompressedSize);
+			int bytesDecompressed = g_OodleDecompressFunc(data.data(), data.size(), reinterpret_cast<unsigned char*>(oodleOut.data()), entry.uncompressedSize, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3);
+			//printf("decompressed %u\n", bytesDecompressed);
+			if (bytesDecompressed != entry.uncompressedSize && entry.compressionType == FileCompressionType::None) {
+				//printf("NOT SAME AS DECOMPRESSED SIZE %u", entry.uncompressedSize);
+			}
+			data = std::move(oodleOut);
+		}
+
 		switch (entry.compressionType) {
 		case FileCompressionType::None:
-			if (entry.compressedSize != entry.uncompressedSize)
+			if (entry.compressedSize != entry.uncompressedSize && !oodle)
 				throw std::logic_error("compressed/uncompressed size mismatch");
 
 			break;

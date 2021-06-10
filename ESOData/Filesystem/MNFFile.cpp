@@ -10,7 +10,7 @@
 
 namespace esodata {
 	bool MNFFile::hasNewDataFileCount() const {
-		return version >= 0x0102;
+		return version >= 0x0102 || version == 0x0003;
 	}
 
 	size_t MNFFile::dataFileCount() const {
@@ -80,6 +80,12 @@ namespace esodata {
 		}
 		else {
 			stream >> file.dataFileCountOld;
+		}
+		if (file.version == 0x0003) {
+			uint16_t dataFileType;
+			for (int i = 0; i < file.dataFileCountNew - 1; i++) {
+				stream >> dataFileType;
+			}
 		}
 
 		stream >> file.fileFlags;

@@ -1,6 +1,7 @@
 #include <ESOData/Filesystem/FileTable.h>
 
 #include <array>
+#include <stdexcept>
 
 namespace esodata {
 	static const std::array<unsigned char, 5> FileTableExpectedSignature{ 'Z', 'O', 'S', 'F', 'T' };

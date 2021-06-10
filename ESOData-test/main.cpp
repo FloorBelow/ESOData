@@ -5,14 +5,19 @@
 #include <ESOData/World/WorldTerrain.h>
 #include <ESOData/World/FixtureFile.h>
 
+#include "../ESOData/Oodle/oodle.h"
+
 using namespace esodata;
 
 int main(int argc, char *argv[]) {
+	if (!LoadOodleLib()) printf("loading oodle failed\n");
+
 	Filesystem fs;
 
-	fs.addManifest("C:\\Program Files (x86)\\Zenimax Online\\The Elder Scrolls Online\\game\\client\\game.mnf", false);
-	fs.addManifest("C:\\Program Files (x86)\\Zenimax Online\\The Elder Scrolls Online\\depot\\eso.mnf", false);
-	fs.addManifest("C:\\Program Files (x86)\\Zenimax Online\\The Elder Scrolls Online\\vo_en\\esoaudioen.mnf", false);
+
+	fs.addManifest("F:\\Games\\ESO\\The Elder Scrolls Online\\game\\client\\game.mnf", false);
+	fs.addManifest("F:\\Games\\ESO\\The Elder Scrolls Online\\depot\\eso.mnf", false);
+	fs.addManifest("F:\\Games\\ESO\\The Elder Scrolls Online\\vo_en\\esoaudioen.mnf", false);
 
 	fs.loadFileTable(0x8000000100000000ULL);
 	fs.loadFileTable(0x0000000000ffffffULL);

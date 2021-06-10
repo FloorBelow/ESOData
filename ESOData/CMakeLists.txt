@@ -121,6 +121,8 @@ add_library(ESOData STATIC
 	${io_sources}
 	${serialization_sources}
 	${world_sources}
+	Oodle/oodle.h
+	Oodle/oodle.cpp
 )
 
 target_include_directories(ESOData PUBLIC include)

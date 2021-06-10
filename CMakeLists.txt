@@ -10,10 +10,6 @@ SET(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "/incremental:no ${replacementFlags}" 
 STRING(REPLACE "/INCREMENTAL" "" replacementFlags ${CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO})
 SET(CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO "/incremental:no ${replacementFlags}" CACHE STRING "Flags used by the linker during the creation of shared libraries during RELWITHDEBINFO builds." FORCE)
 
-find_program(RUBY_EXECUTABLE ruby)
-if(NOT RUBY_EXECUTABLE)
-	message(FATAL_ERROR "Ruby is required")
-endif()
 
 add_subdirectory(archiveparse)
 
